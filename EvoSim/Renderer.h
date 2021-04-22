@@ -6,7 +6,7 @@
 
 class Renderer {
 public:
-	static enum Source {
+	enum class Source {
 		FILE,
 		LIVE
 	};
