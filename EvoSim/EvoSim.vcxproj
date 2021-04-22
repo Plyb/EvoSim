@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Koby\Desktop\EvoSim\EvoSim\includes\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Koby\Desktop\EvoSim\EvoSim\includes\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\includes\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\includes\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -142,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\OpenGL-Playground\projects\Breakout\Breakout\Breakout\glad.c" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
