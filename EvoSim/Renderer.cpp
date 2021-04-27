@@ -10,24 +10,26 @@
  */
 
 Renderer::Renderer(Renderer::Source source) {
+    configureOpenGL();
+    loadResources();
 	// TODO: The renderer will eventually need to use the source, but it currently doesn't
 }
 
-int Renderer::run() {
+void Renderer::configureOpenGL() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, false);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
-        return -1;
+        exit(1);
     }
 
     glfwSetKeyCallback(window, key_callback);
@@ -38,9 +40,22 @@ int Renderer::run() {
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
-    init();
+void Renderer::loadResources() {
+    ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
 
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->SCREEN_WIDTH), static_cast<float>(this->SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
+    ResourceManager::getShader("sprite").use().set("image", 0);
+    ResourceManager::getShader("sprite").set("projection", projection);
+
+    Shader spriteShader = ResourceManager::getShader("sprite");
+    spriteRenderer = new SpriteRenderer(spriteShader);
+
+    ResourceManager::loadTexture("awesomeface.png", true, "face");
+}
+
+int Renderer::run() {
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
@@ -56,19 +71,6 @@ int Renderer::run() {
 
     glfwTerminate();
     return 0;
-}
-
-void Renderer::init() {
-    ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
-
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->SCREEN_WIDTH), static_cast<float>(this->SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
-    ResourceManager::getShader("sprite").use().set("image", 0);
-    ResourceManager::getShader("sprite").set("projection", projection);
-
-    Shader spriteShader = ResourceManager::getShader("sprite");
-    spriteRenderer = new SpriteRenderer(spriteShader);
-
-    ResourceManager::loadTexture("awesomeface.png", true, "face");
 }
 
 void Renderer::render() {

@@ -21,11 +21,13 @@ private:
 	const unsigned int SCREEN_HEIGHT = 600;
 
 	SpriteRenderer* spriteRenderer;
+	GLFWwindow* window;
 
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-	void init();
+	void configureOpenGL();
+	void loadResources();
 	void render();
 };
 
