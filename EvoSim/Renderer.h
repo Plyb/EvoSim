@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "SpriteRenderer.h"
+
 class Renderer {
 public:
 	enum class Source {
@@ -18,8 +20,13 @@ private:
 	const unsigned int SCREEN_WIDTH = 800;
 	const unsigned int SCREEN_HEIGHT = 600;
 
+	SpriteRenderer* spriteRenderer;
+
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+	void init();
+	void render();
 };
 
 #endif
