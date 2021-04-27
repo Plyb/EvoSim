@@ -51,28 +51,29 @@ int Renderer::run() {
         glfwSwapBuffers(window);
     }
 
-    ResourceManager::Clear();
+    ResourceManager::clear();
+    delete spriteRenderer;
 
     glfwTerminate();
     return 0;
 }
 
 void Renderer::init() {
-    ResourceManager::LoadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
+    ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->SCREEN_WIDTH), static_cast<float>(this->SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
-    ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
-    ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+    ResourceManager::getShader("sprite").use().set("image", 0);
+    ResourceManager::getShader("sprite").set("projection", projection);
 
-    Shader spriteShader = ResourceManager::GetShader("sprite");
+    Shader spriteShader = ResourceManager::getShader("sprite");
     spriteRenderer = new SpriteRenderer(spriteShader);
 
-    ResourceManager::LoadTexture("awesomeface.png", true, "face");
+    ResourceManager::loadTexture("awesomeface.png", true, "face");
 }
 
 void Renderer::render() {
-    Texture2D faceTexture = ResourceManager::GetTexture("face");
-    spriteRenderer->DrawSprite(faceTexture, glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+    Texture2D faceTexture = ResourceManager::getTexture("face");
+    spriteRenderer->drawSprite(faceTexture, glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Renderer::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
