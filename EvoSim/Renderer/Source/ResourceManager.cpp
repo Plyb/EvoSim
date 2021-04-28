@@ -17,32 +17,48 @@
 // Instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::textures;
 std::map<std::string, Shader>       ResourceManager::shaders;
+const char*                         ResourceManager::resourceRoot = "";
+
+void ResourceManager::setResourceRoot(const char* root) {
+    resourceRoot = root;
+}
 
 
-Shader ResourceManager::loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
-{
-    shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+Shader ResourceManager::loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name) {
+    std::string vShaderFileString = prependResourceRoot(vShaderFile);
+    std::string fShaderFileString = prependResourceRoot(fShaderFile);
+    std::string gShaderFileString;
+    if (gShaderFile != nullptr) {
+        gShaderFileString = prependResourceRoot(gShaderFile);
+        gShaderFile = gShaderFileString.c_str();
+    }
+
+    shaders[name] = loadShaderFromFile(vShaderFileString.c_str(), fShaderFileString.c_str(), gShaderFile);
     return shaders[name];
 }
 
-Shader ResourceManager::getShader(std::string name)
-{
+std::string ResourceManager::prependResourceRoot(const char* path) {
+    std::stringstream pathStream;
+    pathStream << resourceRoot << path;
+    return pathStream.str();
+}
+
+Shader ResourceManager::getShader(std::string name) {
     return shaders[name];
 }
 
-Texture2D ResourceManager::loadTexture(const char* file, bool alpha, std::string name)
-{
-    textures[name] = loadTextureFromFile(file, alpha);
+Texture2D ResourceManager::loadTexture(const char* file, bool alpha, std::string name) {
+    std::string fileString = prependResourceRoot(file);
+
+    textures[name] = loadTextureFromFile(fileString.c_str(), alpha);
     return textures[name];
 }
 
-Texture2D ResourceManager::getTexture(std::string name)
-{
+Texture2D ResourceManager::getTexture(std::string name) {
     return textures[name];
 }
 
-void ResourceManager::clear()
-{
+void ResourceManager::clear() {
     // (properly) delete all shaders	
     for (auto iter : shaders)
         glDeleteProgram(iter.second.id);
@@ -51,14 +67,12 @@ void ResourceManager::clear()
         glDeleteTextures(1, &iter.second.id);
 }
 
-Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile)
-{
+Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile) {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
     std::string geometryCode;
-    try
-    {
+    try {
         // open files
         std::ifstream vertexShaderFile(vShaderFile);
         std::ifstream fragmentShaderFile(fShaderFile);
@@ -73,8 +87,7 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
         // if geometry shader path is present, also load a geometry shader
-        if (gShaderFile != nullptr)
-        {
+        if (gShaderFile != nullptr) {
             std::ifstream geometryShaderFile(gShaderFile);
             std::stringstream gShaderStream;
             gShaderStream << geometryShaderFile.rdbuf();
@@ -82,8 +95,7 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
             geometryCode = gShaderStream.str();
         }
     }
-    catch (std::exception e)
-    {
+    catch (std::exception e) {
         std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
     }
     const char* vShaderCode = vertexCode.c_str();
@@ -95,12 +107,10 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     return shader;
 }
 
-Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha)
-{
+Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha) {
     // create texture object
     Texture2D texture;
-    if (alpha)
-    {
+    if (alpha) {
         texture.internalFormat = GL_RGBA;
         texture.imageFormat = GL_RGBA;
     }

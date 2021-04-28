@@ -43,7 +43,9 @@ void Renderer::configureOpenGL() {
 }
 
 void Renderer::loadResources() {
-    ResourceManager::loadShader("Renderer/Resources/sprite.vert", "Renderer/Resources/sprite.frag", nullptr, "sprite");
+    ResourceManager::setResourceRoot("Renderer/Resources/");
+
+    ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->SCREEN_WIDTH), static_cast<float>(this->SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
     ResourceManager::getShader("sprite").use().set("image", 0);
@@ -52,7 +54,7 @@ void Renderer::loadResources() {
     Shader spriteShader = ResourceManager::getShader("sprite");
     spriteRenderer = new SpriteRenderer(spriteShader);
 
-    ResourceManager::loadTexture("Renderer/Resources/awesomeface.png", true, "face");
+    ResourceManager::loadTexture("awesomeface.png", true, "face");
 }
 
 int Renderer::run() {

@@ -29,6 +29,9 @@ public:
     // resource storage
     static std::map<std::string, Shader>    shaders;
     static std::map<std::string, Texture2D> textures;
+    
+    static void setResourceRoot(const char* root);
+
     // loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
     static Shader    loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name);
     // retrieves a stored sader
@@ -42,10 +45,15 @@ public:
 private:
     // private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
     ResourceManager() { }
+
+    static const char* resourceRoot;
+
     // loads and generates a shader from file
     static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
     // loads a single texture from file
     static Texture2D loadTextureFromFile(const char* file, bool alpha);
+
+    static std::string prependResourceRoot(const char* path);
 };
 
 #endif
