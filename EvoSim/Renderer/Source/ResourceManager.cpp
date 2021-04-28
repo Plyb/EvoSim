@@ -6,13 +6,13 @@
 ** Creative Commons, either version 4 of the License, or (at your
 ** option) any later version.
 ******************************************************************/
-#include "ResourceManager.h"
+#include "../Headers/ResourceManager.h"
 
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
-#include "stb_image.h"
+#include "../Headers/stb_image.h"
 
 // Instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::textures;
