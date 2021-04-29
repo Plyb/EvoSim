@@ -23,9 +23,9 @@ glm::mat4 Camera::getViewProjectionTransform() {
 	return projectionTransform * viewTransform;
 }
 
-void Camera::translate(float x, float y, bool fast) {
+void Camera::translate(glm::vec2 direction, bool fast) {
 	float multiplier = fast ? FAST_MULTIPLIER: 1.0f;
-	position += glm::normalize(glm::vec3(x, y, 0.0f)) * SPEED * multiplier * Time::getDeltaTime();
+	position += glm::normalize(glm::vec3(direction, 0.0f)) * SPEED * multiplier * Time::getDeltaTime();
 }
 
 void Camera::processInput() {
@@ -33,16 +33,9 @@ void Camera::processInput() {
     if (Input::getKey(GLFW_KEY_LEFT_SHIFT)) {
         shiftHeld = true;
     }
-    if (Input::getKey(GLFW_KEY_W)) {
-        translate(0.0f, 1.f, shiftHeld);
-    }
-    if (Input::getKey(GLFW_KEY_S)) {
-        translate(0.0f, -1.f, shiftHeld);
-    }
-    if (Input::getKey(GLFW_KEY_D)) {
-        translate(1.f, 0.f, shiftHeld);
-    }
-    if (Input::getKey(GLFW_KEY_A)) {
-        translate(-1.0f, 0.f, shiftHeld);
-    }
+	for (std::map<int, glm::vec2>::const_iterator iter = movementKeyMap.begin(); iter != movementKeyMap.end(); iter++) {
+		if (Input::getKey(iter->first)) {
+			translate(iter->second, shiftHeld);
+		}
+	}
 }
