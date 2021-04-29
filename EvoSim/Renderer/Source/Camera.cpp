@@ -34,10 +34,10 @@ void Camera::processInput() {
         shiftHeld = true;
     }
     if (Input::getKey(GLFW_KEY_W)) {
-        translate(0.0f, -1.f, shiftHeld);
+        translate(0.0f, 1.f, shiftHeld);
     }
     if (Input::getKey(GLFW_KEY_S)) {
-        translate(0.0f, 1.f, shiftHeld);
+        translate(0.0f, -1.f, shiftHeld);
     }
     if (Input::getKey(GLFW_KEY_D)) {
         translate(1.f, 0.f, shiftHeld);
