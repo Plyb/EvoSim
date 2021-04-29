@@ -19,6 +19,10 @@ std::map<std::string, Texture2D>    ResourceManager::textures;
 std::map<std::string, Shader>       ResourceManager::shaders;
 const char*                         ResourceManager::resourceRoot = "";
 
+void ResourceManager::init() {
+    stbi_set_flip_vertically_on_load(true);
+}
+
 void ResourceManager::setResourceRoot(const char* root) {
     resourceRoot = root;
 }

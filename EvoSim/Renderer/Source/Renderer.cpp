@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "../Headers/ResourceManager.h"
+#include "../Headers/Time.h"
 
 /**
  * Much of this code is adapted from the OpenGL tutorials at learnopengl.com
@@ -43,13 +44,14 @@ void Renderer::configureOpenGL() {
 }
 
 void Renderer::loadResources() {
+    ResourceManager::init();
     ResourceManager::setResourceRoot("Renderer/Resources/");
 
     ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
 
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(this->SCREEN_WIDTH), static_cast<float>(this->SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
+    glm::mat4 transform = camera.getViewProjectionTransform();
     ResourceManager::getShader("sprite").use().set("image", 0);
-    ResourceManager::getShader("sprite").set("projection", projection);
+    ResourceManager::getShader("sprite").set("projection", transform);
 
     Shader spriteShader = ResourceManager::getShader("sprite");
     spriteRenderer = new SpriteRenderer(spriteShader);
@@ -60,6 +62,11 @@ void Renderer::loadResources() {
 int Renderer::run() {
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+        Time::updateDeltaTime();
+
+        processInput();
+
+        ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform());
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -78,6 +85,25 @@ int Renderer::run() {
 void Renderer::render() {
     Texture2D faceTexture = ResourceManager::getTexture("face");
     spriteRenderer->drawSprite(faceTexture, glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+void Renderer::processInput() {
+    bool shiftHeld = false;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
+        shiftHeld = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_W)) {
+        camera.translate(0.0f, -1.f, shiftHeld);
+    }
+    if (glfwGetKey(window, GLFW_KEY_S)) {
+        camera.translate(0.0f, 1.f, shiftHeld);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D)) {
+        camera.translate(1.f, 0.f, shiftHeld);
+    }
+    if (glfwGetKey(window, GLFW_KEY_A)) {
+        camera.translate(-1.0f, 0.f, shiftHeld);
+    }
 }
 
 void Renderer::framebuffer_size_callback(GLFWwindow* window, int width, int height) {

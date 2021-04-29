@@ -30,6 +30,7 @@ public:
     static std::map<std::string, Shader>    shaders;
     static std::map<std::string, Texture2D> textures;
     
+    static void init();
     static void setResourceRoot(const char* root);
 
     // loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
