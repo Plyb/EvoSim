@@ -57,8 +57,6 @@ void Renderer::loadResources() {
 
     Shader spriteShader = ResourceManager::getShader("sprite");
     spriteRenderer = new SpriteRenderer(spriteShader);
-
-    ResourceManager::loadTexture("awesomeface.png", true, "face");
 }
 
 int Renderer::run() {
@@ -68,7 +66,6 @@ int Renderer::run() {
 
         Input::update(window);
         presenter.update();
-        ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform());
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -85,8 +82,23 @@ int Renderer::run() {
 }
 
 void Renderer::render() {
-    Texture2D faceTexture = ResourceManager::getTexture("face");
-    spriteRenderer->drawSprite(faceTexture, glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+    ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform());
+
+    Sprite** sprites = presenter.getSprites();
+    for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
+        Sprite* sprite = sprites[i];
+        Texture2D texture;
+        try {
+            // Possible optimization: create a sprite collection system that groups sprites by their image so we don't need to load it every time.
+            // That or load all textures needed in loadResources
+            texture = ResourceManager::getTexture(sprite->image);
+        }
+        catch (const std::out_of_range& ex) {
+            texture = ResourceManager::loadTexture((sprite->image).c_str(), true, sprite->image);
+        }
+
+        spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, glm::vec3(1.0f, 1.0f, 1.0f));
+    }
 }
 
 void Renderer::framebuffer_size_callback(GLFWwindow* window, int width, int height) {

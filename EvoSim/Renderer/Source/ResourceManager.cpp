@@ -59,7 +59,7 @@ Texture2D ResourceManager::loadTexture(const char* file, bool alpha, std::string
 }
 
 Texture2D ResourceManager::getTexture(std::string name) {
-    return textures[name];
+    return textures.at(name);
 }
 
 void ResourceManager::clear() {
