@@ -1,5 +1,10 @@
 #include "../Headers/Presenter.h"
 
+#include <atomic_queue/atomic_queue.h>
+
+#define MAX_NUM_WORLD_STATES 1024
+atomic_queue::AtomicQueue2<WorldState, MAX_NUM_WORLD_STATES> worldStateQueue;
+
 Sprite* tempSprites[] = { // TODO: this is temporary for testing
 	new Sprite("awesomeface.png", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(100.0f, 100.0f)),
 	new Sprite("awesomeface.png", glm::vec2(200.0f, 0.0f), 0.0f, glm::vec2(100.0f, 100.0f)),
@@ -26,6 +31,11 @@ CreatureState states[] = {
 	creature3
 };
 
+CreatureState states2[] = {
+	creature1,
+	creature2
+};
+
 Presenter::Presenter() {
 	worldState = {
 		{ 
@@ -35,11 +45,37 @@ Presenter::Presenter() {
 			3
 		}
 	};
+	WorldState worldState2 = {
+		{
+			states
+		},
+		{
+			3
+		}
+	};
+	worldState = {
+		{
+			states2
+		},
+		{
+			2
+		}
+	};
+
+	for (unsigned int i = 0; i < MAX_NUM_WORLD_STATES; i++) {
+		if ((i / 10) % 2) {
+			worldStateQueue.push(worldState);
+		}
+		else {
+			worldStateQueue.push(worldState2);
+		}
+	}
 	camera = nullptr;
 }
 
 void Presenter::update() {
 	camera->update();
+	worldStateQueue.try_pop(worldState);
 }
 
 void Presenter::setCamera(Camera* camera) {
