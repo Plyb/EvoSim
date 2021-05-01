@@ -3,17 +3,21 @@
 
 #include "Camera.h"
 #include "Sprite.h"
+#include "../../Shared/Headers/WorldState.h"
 
 class Presenter {
 public:
+	Presenter();
+
 	void update();
 	void setCamera(Camera* camera);
 
-	// Returns a null terminated array
-	Sprite** getSprites();
+	// Sprites becomes a null terminated array of sprite pointers
+	Sprite** getSprites(Sprite** sprites, unsigned int maxSprites);
 
 private:
 	Camera* camera;
+	WorldState worldState;
 };
 
 #endif // !PRESENTER_H

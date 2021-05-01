@@ -84,7 +84,9 @@ int Renderer::run() {
 void Renderer::render() {
     ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform());
 
-    Sprite** sprites = presenter.getSprites();
+
+    Sprite* sprites[1024];
+    presenter.getSprites(sprites, 1024);
     for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
         Sprite* sprite = sprites[i];
         Texture2D texture;
@@ -98,6 +100,7 @@ void Renderer::render() {
         }
 
         spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, glm::vec3(1.0f, 1.0f, 1.0f));
+        delete sprite;
     }
 }
 
