@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "Sprite.h"
+#include "Timeline.h"
 #include "../../Shared/Headers/WorldState.h"
 
 class Presenter {
@@ -18,6 +19,7 @@ public:
 private:
 	Camera* camera;
 	WorldState worldState;
+	Timeline timeline;
 };
 
 #endif // !PRESENTER_H

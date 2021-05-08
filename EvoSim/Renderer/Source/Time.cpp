@@ -4,6 +4,11 @@
 
 float Time::deltaTime = 0.0f;
 float Time::lastFrame = 0.0f;
+float Time::startTime = glfwGetTime();
+
+void Time::start() {
+	startTime = glfwGetTime();
+}
 
 void Time::updateDeltaTime() {
 	float currentFrame = glfwGetTime();
@@ -13,4 +18,8 @@ void Time::updateDeltaTime() {
 
 float Time::getDeltaTime() {
 	return deltaTime;
+}
+
+int Time::getFrames() {
+	return (int)(glfwGetTime() * FPS);
 }
