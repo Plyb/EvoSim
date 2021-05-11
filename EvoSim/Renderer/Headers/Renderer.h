@@ -10,12 +10,7 @@
 
 class Renderer {
 public:
-	enum class Source {
-		FILE,
-		LIVE
-	};
-
-	Renderer(Renderer::Source source);
+	Renderer(Timeline& timeline);
 
 	int run();
 private:
@@ -25,7 +20,7 @@ private:
 	SpriteRenderer* spriteRenderer;
 	GLFWwindow* window;
 	Camera camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Presenter presenter;
+	Presenter* presenter;
 
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);

@@ -1,6 +1,6 @@
 #include "../Headers/Timeline.h"
 
-#include "../Headers/Time.h"
+#include "../../Renderer/Headers/Time.h" // TODO: bad dependency
 
 WorldState states[1024];
 
@@ -64,4 +64,8 @@ bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
 	}
 	worldState = states[frame];
 	return true;
+}
+
+void Timeline::push(WorldState worldState) {
+	// TODO: this isn't actually implemented at the moment
 }

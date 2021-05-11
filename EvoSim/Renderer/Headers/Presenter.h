@@ -3,15 +3,13 @@
 
 #include "Camera.h"
 #include "Sprite.h"
-#include "Timeline.h"
-#include "../../Shared/Headers/WorldState.h"
+#include "../../Shared/Headers/Timeline.h"
 
 class Presenter {
 public:
-	Presenter();
+	Presenter(Camera* camera, Timeline* timeline);
 
 	void update();
-	void setCamera(Camera* camera);
 
 	// Sprites becomes a null terminated array of sprite pointers
 	Sprite** getSprites(Sprite** sprites, unsigned int maxSprites);
@@ -19,7 +17,7 @@ public:
 private:
 	Camera* camera;
 	WorldState worldState;
-	Timeline timeline;
+	Timeline* timeline;
 };
 
 #endif // !PRESENTER_H

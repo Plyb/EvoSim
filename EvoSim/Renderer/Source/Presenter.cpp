@@ -9,19 +9,13 @@ Sprite* tempSprites[] = { // TODO: this is temporary for testing
 	NULL
 };
 
-Presenter::Presenter() {
-	timeline = Timeline();
-	camera = nullptr;
-	timeline.tryGetStateAtFrame(0, worldState);
+Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
+	timeline->tryGetStateAtFrame(0, worldState);
 }
 
 void Presenter::update() {
 	camera->update();
-	timeline.tryGetStateAtFrame(Time::getFrames(), worldState);
-}
-
-void Presenter::setCamera(Camera* camera) {
-	this->camera = camera;
+	timeline->tryGetStateAtFrame(Time::getFrames(), worldState);
 }
 
 Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {

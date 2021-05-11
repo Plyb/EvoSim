@@ -11,10 +11,10 @@
  * Much of this code is adapted from the OpenGL tutorials at learnopengl.com
  */
 
-Renderer::Renderer(Renderer::Source source) {
+Renderer::Renderer(Timeline& timeline) {
     configureOpenGL();
     loadResources();
-    presenter.setCamera(&camera);
+    presenter = new Presenter(&camera, &timeline);
 	// TODO: The renderer will eventually need to use the source, but it currently doesn't
 }
 
@@ -65,7 +65,7 @@ int Renderer::run() {
         Time::updateDeltaTime();
 
         Input::update(window);
-        presenter.update();
+        presenter->update();
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -86,7 +86,7 @@ void Renderer::render() {
 
 
     Sprite* sprites[1024];
-    presenter.getSprites(sprites, 1024);
+    presenter->getSprites(sprites, 1024);
     for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
         Sprite* sprite = sprites[i];
         Texture2D texture;
