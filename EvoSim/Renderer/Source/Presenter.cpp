@@ -10,6 +10,7 @@ Sprite* tempSprites[] = { // TODO: this is temporary for testing
 };
 
 Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
+	Time::start();
 	timeline->tryGetStateAtFrame(0, worldState);
 }
 
