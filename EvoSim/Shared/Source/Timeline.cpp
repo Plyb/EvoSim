@@ -2,8 +2,6 @@
 
 #include "../../Renderer/Headers/Time.h" // TODO: bad dependency
 
-WorldState states[1024];
-
 // TODO: this is temporary for testing
 CreatureState creature1 = {
 	0.0f, 0.0f, 0.0f
@@ -47,25 +45,33 @@ Timeline::Timeline() {
 			2
 		}
 	};
-
+	lock.lock();
 	for (int i = 0; i < 1024; i++) {
 		if ((i / 10) % 2) {
-			states[i] = worldState;
+			states.push_back(worldState);
 		}
 		else {
-			states[i] = worldState2;
+			states.push_back(worldState2);
 		}
 	}
+	lock.unlock();
 }
 
 bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
-	if (frame >= 1024) {
+	if (!lock.try_lock()) {
 		return false;
 	}
-	worldState = states[frame];
+	if (frame >= states.size()) {
+		lock.unlock();
+		return false;
+	}
+	worldState = states.at(frame);
+	lock.unlock();
 	return true;
 }
 
 void Timeline::push(WorldState worldState) {
-	// TODO: this isn't actually implemented at the moment
+	lock.lock();
+	states.push_back(worldState);
+	lock.unlock();
 }
