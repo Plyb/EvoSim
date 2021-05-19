@@ -22,8 +22,10 @@ void Simulator::run() {
 			1
 		}
 	};
+	int i = 0;
 	while (true) {
 		worldState.creatures[0].rot += 0.1f;
 		timeline->push(worldState);
+		i++;
 	}
 }
