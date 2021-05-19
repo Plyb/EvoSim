@@ -1,7 +1,7 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
-#include "Shared/Headers/Timeline.h"
+#include "../Shared/Headers/Timeline.h"
 
 class Simulator {
 public:

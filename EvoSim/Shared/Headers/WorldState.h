@@ -1,6 +1,8 @@
 #ifndef WORLD_STATE_H
 #define WORLD_STATE_H
 
+#include <vector>
+
 struct CreatureState {
 	float xpos;
 	float ypos;
@@ -8,7 +10,7 @@ struct CreatureState {
 };
 
 struct WorldState {
-	CreatureState* creatures;
+	std::vector<CreatureState> creatures;
 	unsigned int numCreatures;
 };
 

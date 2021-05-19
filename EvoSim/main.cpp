@@ -1,6 +1,6 @@
 #include "Renderer/Headers/Renderer.h"
 #include "Shared/Headers/Timeline.h"
-#include "Simulator.h"
+#include "Simulator/Simulator.h"
 
 #include <iostream>
 #include <Windows.h>

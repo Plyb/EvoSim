@@ -1,5 +1,7 @@
 #include "../Headers/Timeline.h"
 
+#include <iostream>
+
 Timeline::Timeline() {}
 
 bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
@@ -10,6 +12,7 @@ bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
 		lock.unlock();
 		return false;
 	}
+	std::cout << frame << std::endl;
 	worldState = states.at(frame);
 	lock.unlock();
 	return true;
