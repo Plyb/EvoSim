@@ -14,7 +14,7 @@ std::vector<CreatureState> creatureStates = {
 };
 
 void Simulator::run() {
-	WorldState worldState = {
+	latestState = {
 		{
 			creatureStates
 		},
@@ -22,10 +22,30 @@ void Simulator::run() {
 			1
 		}
 	};
-	int i = 0;
+
 	while (true) {
-		worldState.creatures[0].rot += 0.1f;
-		timeline->push(worldState);
-		i++;
+		updateCreatures();
+		remap();
+		updateGround();
+		updateCreatureList();
+		timeline->push(latestState);
 	}
+}
+
+// TODO: this can be parallelized
+void Simulator::updateCreatures() {
+	latestState.creatures[0].rot += 0.1f;
+}
+
+void Simulator::remap() {
+
+}
+
+// TODO: this can be parallelized
+void Simulator::updateGround() {
+
+}
+
+void Simulator::updateCreatureList() {
+
 }

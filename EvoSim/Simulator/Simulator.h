@@ -10,6 +10,13 @@ public:
 	void run();
 private:
 	Timeline* timeline;
+
+	WorldState latestState;
+
+	void updateCreatures();
+	void remap();
+	void updateGround();
+	void updateCreatureList();
 };
 
 #endif // !SIMULATOR_H

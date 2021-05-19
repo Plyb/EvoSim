@@ -14,7 +14,6 @@ bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
 		lock.unlock();
 		return false;
 	}
-	std::cout << frame << std::endl;
 	worldState = epochs.at(frame / Epoch::MAX_SIZE)->getAt(frame % Epoch::MAX_SIZE);
 	lock.unlock();
 	return true;
