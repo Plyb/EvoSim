@@ -11,7 +11,7 @@ public:
 private:
 	Timeline* timeline;
 
-	WorldState latestState;
+	WorldState* latestState;
 
 	void updateCreatures();
 	void remap();

@@ -9,9 +9,17 @@ struct CreatureState {
 	float rot;
 };
 
+struct CellState {
+	unsigned char food;
+};
+
 struct WorldState {
+	WorldState();
+	WorldState(std::vector<CreatureState> creatures);
+
 	std::vector<CreatureState> creatures;
-	unsigned int numCreatures;
+	static const int WORLD_WIDTH = 100;
+	CellState ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
 };
 
 #endif
