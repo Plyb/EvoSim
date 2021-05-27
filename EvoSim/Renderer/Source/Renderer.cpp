@@ -6,6 +6,7 @@
 #include "../Headers/ResourceManager.h"
 #include "../Headers/Time.h"
 #include "../Headers/Input.h"
+#include "../Headers/BackgroundCell.h"
 
 /**
  * Much of this code is adapted from the OpenGL tutorials at learnopengl.com
@@ -50,13 +51,17 @@ void Renderer::loadResources() {
     ResourceManager::setResourceRoot("Renderer/Resources/");
 
     ResourceManager::loadShader("sprite.vert", "sprite.frag", nullptr, "sprite");
+    ResourceManager::loadShader("bg.vert", "bg.frag", nullptr, "bg");
 
     glm::mat4 transform = camera.getViewProjectionTransform();
-    ResourceManager::getShader("sprite").use().set("image", 0);
+    ResourceManager::getShader("sprite").use().set("image", 0, true);
     ResourceManager::getShader("sprite").set("projection", transform);
+    ResourceManager::getShader("bg").set("projection", transform, true);
 
     Shader spriteShader = ResourceManager::getShader("sprite");
+    Shader backgroundShader = ResourceManager::getShader("bg");
     spriteRenderer = new SpriteRenderer(spriteShader);
+    backgroundRenderer = new BackgroundRenderer(backgroundShader);
 }
 
 int Renderer::run() {
@@ -67,7 +72,7 @@ int Renderer::run() {
         Input::update(window);
         presenter->update();
 
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         render();
 
@@ -82,7 +87,18 @@ int Renderer::run() {
 }
 
 void Renderer::render() {
-    ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform());
+    renderBackground();
+    renderSprites();
+}
+
+void Renderer::renderBackground() {
+    ResourceManager::getShader("bg").set("projection", camera.getViewProjectionTransform(), true);
+    BackgroundCell** background = presenter->getBackground();
+    backgroundRenderer->drawBackground(background);
+}
+
+void Renderer::renderSprites() {
+    ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform(), true);
 
 
     Sprite* sprites[1024];

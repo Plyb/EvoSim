@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "SpriteRenderer.h"
+#include "BackgroundRenderer.h"
 #include "Camera.h"
 #include "Presenter.h"
 
@@ -18,6 +19,7 @@ private:
 	const unsigned int SCREEN_HEIGHT = 600;
 
 	SpriteRenderer* spriteRenderer;
+	BackgroundRenderer* backgroundRenderer;
 	GLFWwindow* window;
 	Camera camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Presenter* presenter;
@@ -28,6 +30,8 @@ private:
 	void configureOpenGL();
 	void loadResources();
 	void render();
+	void renderSprites();
+	void renderBackground();
 	void processInput();
 };
 
