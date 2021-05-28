@@ -34,7 +34,11 @@ void Simulator::remap() {
 
 // TODO: this can be parallelized
 void Simulator::updateGround() {
-
+	for (unsigned int i = 0; i < NUM_CELLS_TO_UPDATE; i++) {
+		unsigned int x = rand() % WorldState::WORLD_WIDTH;
+		unsigned int y = rand() % WorldState::WORLD_WIDTH;
+		latestState->ground[x][y].food += FOOD_BOOST;
+	}
 }
 
 void Simulator::updateCreatureList() {
