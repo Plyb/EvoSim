@@ -19,9 +19,11 @@ public:
 	// 2D array of backgound cells
 	BackgroundCell** getBackground();
 
+	bool isReady();
+
 private:
 	Camera* camera;
-	WorldState worldState;
+	WorldState* worldState = NULL;
 	Timeline* timeline;
 	BackgroundCell** background;
 };

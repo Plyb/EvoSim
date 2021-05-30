@@ -65,6 +65,10 @@ void Renderer::loadResources() {
 }
 
 int Renderer::run() {
+    while (!presenter->isReady()) {
+        presenter->update();
+    }
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
         Time::updateDeltaTime();

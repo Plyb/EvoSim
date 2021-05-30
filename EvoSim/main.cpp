@@ -17,12 +17,14 @@ int main() {
 		std::cerr << "There was an error creating the render thread" << std::endl;
 		return -1;
 	}
+	SetThreadPriority(renderHandle, THREAD_PRIORITY_HIGHEST);
 
 	HANDLE simulateHandle = (HANDLE)_beginthreadex(0, 0, &simulateThread, &timeline, 0, 0);
 	if (simulateHandle == 0) {
 		std::cerr << "There was an error creating the simulate thread" << std::endl;
 		return -1;
 	}
+	SetThreadPriority(simulateHandle, THREAD_PRIORITY_IDLE);
 
 	WaitForSingleObject(renderHandle, INFINITE);
 	WaitForSingleObject(simulateHandle, INFINITE);

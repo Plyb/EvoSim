@@ -6,7 +6,7 @@ Timeline::Timeline() {
 	pushEpoch = new Epoch();
 }
 
-bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
+bool Timeline::tryGetStateAtFrame(int frame, WorldState*& worldState) {
 	if (!lock.try_lock()) {
 		return false;
 	}
@@ -19,7 +19,7 @@ bool Timeline::tryGetStateAtFrame(int frame, WorldState& worldState) {
 	return true;
 }
 
-void Timeline::push(WorldState worldState) {
+void Timeline::push(WorldState* worldState) {
 	pushEpoch->push(worldState);
 	if (pushEpoch->getSize() == Epoch::MAX_SIZE) {
 		lock.lock();
@@ -29,9 +29,9 @@ void Timeline::push(WorldState worldState) {
 	}
 }
 
-void Timeline::Epoch::push(WorldState worldState) {
+void Timeline::Epoch::push(WorldState* worldState) {
 	if (this->size == this->MAX_SIZE) {
-		throw std::out_of_range("Pushed to many items to Epoch without clearing");
+		throw std::out_of_range("Pushed too many items to Epoch without clearing");
 	}
 	this->states[this->size] = worldState;
 	this->size++;
@@ -41,7 +41,7 @@ int Timeline::Epoch::getSize() {
 	return this->size;
 }
 
-WorldState Timeline::Epoch::getAt(int index) {
+WorldState* Timeline::Epoch::getAt(int index) {
 	if (index >= this->size) {
 		throw std::out_of_range("Tried accessing nonexistent element of epoch");
 	}

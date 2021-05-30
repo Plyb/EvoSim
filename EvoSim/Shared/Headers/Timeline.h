@@ -8,20 +8,21 @@
 class Timeline {
 public:
 	Timeline();
-	bool tryGetStateAtFrame(int frame, WorldState& worldState);
-	void push(WorldState worldState);
+	bool tryGetStateAtFrame(int frame, WorldState*& worldState);
+	void push(WorldState* worldState);
 private:
 
 	class Epoch {
 	public:
 		static const int MAX_SIZE = 1024;
 
-		void push(WorldState worldstate);
+		void push(WorldState* worldstate);
 		int getSize();
-		WorldState getAt(int index);
+		WorldState* getAt(int index);
 	private:
+
 		int size = 0;
-		WorldState states[MAX_SIZE];
+		WorldState* states[MAX_SIZE];
 	};
 	Epoch* pushEpoch;
 

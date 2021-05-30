@@ -11,11 +11,15 @@ struct CreatureState {
 
 struct CellState {
 	unsigned char food;
+	unsigned char numCreatures = 0;
+	static const int MAX_CREATURES = 16;
+	CreatureState* creatures[CellState::MAX_CREATURES];
 };
 
 struct WorldState {
 	WorldState();
 	WorldState(std::vector<CreatureState> creatures);
+	WorldState(WorldState* other);
 
 	std::vector<CreatureState> creatures;
 	static const int WORLD_WIDTH = 100;
