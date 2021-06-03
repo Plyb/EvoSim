@@ -1,6 +1,8 @@
 #include "../Headers/Timeline.h"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 Timeline::Timeline() {
 	pushEpoch = new Epoch();
@@ -26,7 +28,14 @@ void Timeline::push(WorldState* worldState) {
 		epochs.push_back(pushEpoch);
 		lock.unlock();
 		pushEpoch = new Epoch();
+		if (epochs.size() == MAX_EPOCHS) {
+			isFull = true;
+		}
 	}
+}
+
+bool Timeline::getIsFull() {
+	return isFull;
 }
 
 void Timeline::Epoch::push(WorldState* worldState) {

@@ -17,7 +17,7 @@ std::vector<CreatureState> creatureStates = {
 Simulator::Simulator(Timeline& timeline) : timeline(&timeline), latestState(new WorldState(creatureStates)) {};
 
 void Simulator::run() {
-	while (true) {
+	while (!timeline->getIsFull()) {
 		updateCreatures();
 		remap();
 		updateGround();
