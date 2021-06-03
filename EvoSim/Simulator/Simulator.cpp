@@ -41,15 +41,13 @@ void Simulator::remap() {
 	}
 
 	for (CreatureState creature : latestState->creatures) {
-		int xpos = (int)creature.xpos;
-		int ypos = (int)creature.ypos;
-		if (xpos < 0 || xpos >= WorldState::WORLD_WIDTH || ypos < 0 || ypos >= WorldState::WORLD_WIDTH) {
+		CellState* cell = latestState->cellAt(creature);
+		if (cell == NULL) {
 			continue;
 		}
 
-		CellState& cell = latestState->ground[xpos][ypos];
-		cell.creatures[cell.numCreatures] = &creature;
-		cell.numCreatures++;
+		cell->creatures[cell->numCreatures] = &creature;
+		cell->numCreatures++;
 	}
 }
 

@@ -25,3 +25,14 @@ WorldState::WorldState(WorldState* other) {
 		}
 	}
 }
+
+CellState* WorldState::cellAt(CreatureState& creature) {
+	int xpos = (int)(creature.xpos + 0.5f);
+	int ypos = (int)(creature.ypos + 0.5f);
+
+	if (xpos < 0 || xpos >= WorldState::WORLD_WIDTH || ypos < 0 || ypos >= WorldState::WORLD_WIDTH) {
+		return NULL;
+	}
+
+	return &(ground[xpos][ypos]);
+}

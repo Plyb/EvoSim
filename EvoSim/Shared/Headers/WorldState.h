@@ -24,6 +24,8 @@ struct WorldState {
 	std::vector<CreatureState> creatures;
 	static const int WORLD_WIDTH = 100;
 	CellState ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
+
+	CellState* cellAt(CreatureState& creature);
 };
 
 #endif
