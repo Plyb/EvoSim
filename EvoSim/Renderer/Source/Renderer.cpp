@@ -119,7 +119,7 @@ void Renderer::renderSprites() {
             texture = ResourceManager::loadTexture((sprite->image).c_str(), true, sprite->image);
         }
 
-        spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, glm::vec3(1.0f, 1.0f, 1.0f));
+        spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, sprite->color);
         delete sprite;
     }
 }

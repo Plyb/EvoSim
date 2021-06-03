@@ -8,6 +8,8 @@ struct CreatureState {
 	float ypos;
 	float rot;
 	float energy;
+
+	float eaten;
 };
 
 struct CellState {

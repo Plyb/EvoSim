@@ -13,7 +13,7 @@ Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 	};
 	currentState = new WorldState(creatureStates);
 
-	creatures.push_back(new Creature(&currentState->creatures[0]));
+	creatures.push_back(new Creature(&currentState->creatures[0], currentState));
 };
 
 void Simulator::run() {
@@ -40,7 +40,7 @@ void Simulator::remap() {
 		}
 	}
 
-	for (CreatureState creature : currentState->creatures) {
+	for (CreatureState& creature : currentState->creatures) {
 		CellState* cell = currentState->cellAt(creature);
 		if (cell == NULL) {
 			continue;
@@ -61,10 +61,9 @@ void Simulator::updateGround() {
 
 	for (unsigned int x = 0; x < WorldState::WORLD_WIDTH; x++) {
 		for (unsigned int y = 0; y < WorldState::WORLD_WIDTH; y++) {
-			unsigned char& oldFood = currentState->ground[x][y].food;
-			unsigned char newFood = oldFood - currentState->ground[x][y].numCreatures;
-			if (newFood < oldFood) {
-				oldFood = newFood;
+			unsigned char& food = currentState->ground[x][y].food;
+			for (unsigned int c = 0; c < currentState->ground[x][y].numCreatures; c++) {
+				food -= currentState->ground[x][y].creatures[c]->eaten;
 			}
 		}
 	}
