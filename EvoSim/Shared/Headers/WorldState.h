@@ -7,6 +7,7 @@ struct CreatureState {
 	float xpos;
 	float ypos;
 	float rot;
+	float energy;
 };
 
 struct CellState {
@@ -25,7 +26,7 @@ struct WorldState {
 	static const int WORLD_WIDTH = 100;
 	CellState ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
 
-	CellState* cellAt(CreatureState& creature);
+	CellState* cellAt(const CreatureState& creature);
 };
 
 #endif

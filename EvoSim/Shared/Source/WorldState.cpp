@@ -26,7 +26,7 @@ WorldState::WorldState(WorldState* other) {
 	}
 }
 
-CellState* WorldState::cellAt(CreatureState& creature) {
+CellState* WorldState::cellAt(const CreatureState& creature) {
 	int xpos = (int)(creature.xpos + 0.5f);
 	int ypos = (int)(creature.ypos + 0.5f);
 

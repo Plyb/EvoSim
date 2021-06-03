@@ -2,6 +2,8 @@
 #define SIMULATOR_H
 
 #include "../Shared/Headers/Timeline.h"
+#include "Creature.h"
+#include <list>
 
 class Simulator {
 public:
@@ -11,7 +13,8 @@ public:
 private:
 	Timeline* timeline;
 
-	WorldState* latestState;
+	WorldState* currentState;
+	std::list<Creature*> creatures;
 
 	void updateCreatures();
 	void remap();

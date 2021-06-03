@@ -1,20 +1,20 @@
 #include "Simulator.h"
 
-#define _USE_MATH_DEFINES
-
 #include <iostream>
-#include <math.h>
 
-// TODO: this is temporary for testing
-CreatureState creature1 = {
-	0.0f, 0.0f, 0.0f
+
+Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
+	//set up initial state
+	CreatureState creatureState = {
+		0.0f, 0.0f, 0.0f
+	};
+	std::vector<CreatureState> creatureStates = {
+		creatureState,
+	};
+	currentState = new WorldState(creatureStates);
+
+	creatures.push_back(new Creature(&currentState->creatures[0]));
 };
-
-std::vector<CreatureState> creatureStates = {
-	creature1,
-};
-
-Simulator::Simulator(Timeline& timeline) : timeline(&timeline), latestState(new WorldState(creatureStates)) {};
 
 void Simulator::run() {
 	while (!timeline->getIsFull()) {
@@ -22,26 +22,26 @@ void Simulator::run() {
 		remap();
 		updateGround();
 		updateCreatureList();
-		timeline->push(new WorldState(latestState));
+		timeline->push(new WorldState(currentState));
 	}
 }
 
 // TODO: this can be parallelized
 void Simulator::updateCreatures() {
-	latestState->creatures[0].rot += 0.1f;
-	latestState->creatures[0].xpos += cos(latestState->creatures[0].rot * M_PI / 180) / 100.0f;
-	latestState->creatures[0].ypos += sin(latestState->creatures[0].rot * M_PI / 180) / 100.0f;
+	for (Creature* creature : creatures) {
+		creature->update();
+	}
 }
 
 void Simulator::remap() {
 	for (unsigned int x = 0; x < WorldState::WORLD_WIDTH; x++) {
 		for (unsigned int y = 0; y < WorldState::WORLD_WIDTH; y++) {
-			latestState->ground[x][y].numCreatures = 0;
+			currentState->ground[x][y].numCreatures = 0;
 		}
 	}
 
-	for (CreatureState creature : latestState->creatures) {
-		CellState* cell = latestState->cellAt(creature);
+	for (CreatureState creature : currentState->creatures) {
+		CellState* cell = currentState->cellAt(creature);
 		if (cell == NULL) {
 			continue;
 		}
@@ -56,13 +56,13 @@ void Simulator::updateGround() {
 	for (unsigned int i = 0; i < NUM_CELLS_TO_UPDATE; i++) {
 		unsigned int x = rand() % WorldState::WORLD_WIDTH;
 		unsigned int y = rand() % WorldState::WORLD_WIDTH;
-		latestState->ground[x][y].food += FOOD_BOOST;
+		currentState->ground[x][y].food += FOOD_BOOST;
 	}
 
 	for (unsigned int x = 0; x < WorldState::WORLD_WIDTH; x++) {
 		for (unsigned int y = 0; y < WorldState::WORLD_WIDTH; y++) {
-			unsigned char& oldFood = latestState->ground[x][y].food;
-			unsigned char newFood = oldFood - latestState->ground[x][y].numCreatures;
+			unsigned char& oldFood = currentState->ground[x][y].food;
+			unsigned char newFood = oldFood - currentState->ground[x][y].numCreatures;
 			if (newFood < oldFood) {
 				oldFood = newFood;
 			}
