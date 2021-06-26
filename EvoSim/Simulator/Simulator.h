@@ -3,7 +3,7 @@
 
 #include "../Shared/Headers/Timeline.h"
 #include "Creature.h"
-#include <list>
+#include "Cell.h"
 
 class Simulator {
 public:
@@ -13,16 +13,16 @@ public:
 private:
 	Timeline* timeline;
 
-	WorldState* currentState;
-	std::list<Creature*> creatures;
+	// State
+	std::vector<Creature*> creatures; // TODO make this a list, not a vector
+	Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
 
 	void updateCreatures();
 	void remap();
 	void updateGround();
 	void updateCreatureList();
 
-	static const unsigned int NUM_CELLS_TO_UPDATE = 10;
-	static const unsigned int FOOD_BOOST = 16;
+	WorldState* createState() const; // TODO make this const
 };
 
 #endif // !SIMULATOR_H

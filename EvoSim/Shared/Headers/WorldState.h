@@ -14,9 +14,6 @@ struct CreatureState {
 
 struct CellState {
 	unsigned char food;
-	unsigned char numCreatures = 0;
-	static const int MAX_CREATURES = 16;
-	CreatureState* creatures[CellState::MAX_CREATURES];
 };
 
 struct WorldState {
@@ -27,8 +24,6 @@ struct WorldState {
 	std::vector<CreatureState> creatures;
 	static const int WORLD_WIDTH = 100;
 	CellState ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
-
-	CellState* cellAt(const CreatureState& creature);
 };
 
 #endif

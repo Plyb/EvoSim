@@ -2,15 +2,21 @@
 #define CREATURE_H
 
 #include "../Shared/Headers/WorldState.h"
+#include "Cell.h"
 
 class Creature {
 public:
-	Creature(CreatureState* state, WorldState* worldState);
+	Creature(CreatureState* state);
 
-	void update();
+	void update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
+	void remapCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
+
+	CreatureState* getState() const;
 private:
 	CreatureState* state;
-	WorldState* worldState;
+
+	Cell* getCurrentCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const;
+	const CellState* getCurrentCellState(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const;
 
 	static const float BASE_ENERGY_CONSUMPTION;
 	static const float BASE_ABSORPTION_RATE;
