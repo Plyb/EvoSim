@@ -70,5 +70,9 @@ void Simulator::updateGround() {
 }
 
 void Simulator::updateCreatureList() {
-
+	for (int i = currentState->creatures.size() - 1; i >= 0; i--) {
+		if (currentState->creatures.at(i).energy < 0) {
+			currentState->creatures.erase(currentState->creatures.begin() + i);
+		}
+	}
 }
