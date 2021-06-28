@@ -9,6 +9,8 @@ struct CreatureState {
 	float rot;
 	float energy;
 
+	float reproductionEnergy = 100;
+
 	float eaten;
 };
 

@@ -22,6 +22,9 @@ private:
 	void updateGround();
 	void updateCreatureList();
 
+	void removeCreatures();
+	void addCreatures();
+
 	WorldState* createState() const; // TODO make this const
 };
 

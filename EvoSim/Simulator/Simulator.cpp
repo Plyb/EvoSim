@@ -51,11 +51,29 @@ void Simulator::updateGround() {
 }
 
 void Simulator::updateCreatureList() {
+	removeCreatures();
+	addCreatures();
+}
+
+void Simulator::removeCreatures() {
 	for (int i = creatures.size() - 1; i >= 0; i--) {
 		if (creatures.at(i)->getState()->energy < 0) {
 			delete creatures.at(i);
 			creatures.erase(creatures.begin() + i);
 		}
+	}
+}
+
+void Simulator::addCreatures() {
+	std::vector<Creature*> creaturesToAdd;
+	for (Creature* creature : creatures) {
+		if (creature->getState()->energy >= creature->getState()->reproductionEnergy) {
+			creaturesToAdd.push_back(creature->reproduce());
+		}
+	}
+
+	for (Creature* creature : creaturesToAdd) {
+		creatures.push_back(creature);
 	}
 }
 

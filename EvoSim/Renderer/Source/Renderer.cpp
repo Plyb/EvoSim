@@ -105,7 +105,7 @@ void Renderer::renderSprites() {
     ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform(), true);
 
 
-    Sprite* sprites[1024];
+    Sprite* sprites[1024]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
     presenter->getSprites(sprites, 1024);
     for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
         Sprite* sprite = sprites[i];

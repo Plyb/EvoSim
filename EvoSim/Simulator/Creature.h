@@ -10,6 +10,7 @@ public:
 
 	void update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
 	void remapCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
+	Creature* reproduce() const;
 
 	CreatureState* getState() const;
 private:

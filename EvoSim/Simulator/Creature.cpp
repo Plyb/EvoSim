@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-const float Creature::BASE_ENERGY_CONSUMPTION = 1.0f;
+const float Creature::BASE_ENERGY_CONSUMPTION = 0.25f;
 const float Creature::BASE_ABSORPTION_RATE = 0.05f;
 
 Creature::Creature(CreatureState* state) : state(state) {};
@@ -54,4 +54,17 @@ void Creature::remapCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_
 	}
 
 	cell->pushVisitingCreature(getState());
+}
+
+Creature* Creature::reproduce() const {
+	CreatureState* childState = new CreatureState();
+	childState->xpos = state->xpos;
+	childState->ypos = state->ypos;
+	childState->rot = rand();
+
+	childState->energy = state->reproductionEnergy / 2.0f;
+
+	state->energy -= state->reproductionEnergy / 2.0f;
+
+	return new Creature(childState);
 }
