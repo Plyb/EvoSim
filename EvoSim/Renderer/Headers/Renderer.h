@@ -6,6 +6,7 @@
 
 #include "SpriteRenderer.h"
 #include "BackgroundRenderer.h"
+#include "TextRenderer.h"
 #include "Camera.h"
 #include "Presenter.h"
 
@@ -20,6 +21,7 @@ private:
 
 	SpriteRenderer* spriteRenderer;
 	BackgroundRenderer* backgroundRenderer;
+	TextRenderer* textRenderer;
 	GLFWwindow* window;
 	Camera camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Presenter* presenter;
@@ -32,6 +34,7 @@ private:
 	void render();
 	void renderSprites();
 	void renderBackground();
+	void renderText();
 	void processInput();
 };
 

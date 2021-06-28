@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "Sprite.h"
+#include "TextItem.h"
 #include "BackgroundCell.h"
 #include "../../Shared/Headers/Timeline.h"
 
@@ -13,8 +14,9 @@ public:
 
 	void update();
 
-	// Sprites becomes a null terminated array of sprite pointers
+	// become a null terminated array of pointers
 	Sprite** getSprites(Sprite** sprites, unsigned int maxSprites);
+	TextItem** getTextItems(TextItem** textItems, unsigned int maxTextItems);
 
 	// 2D array of backgound cells
 	BackgroundCell** getBackground();

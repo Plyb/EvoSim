@@ -1,6 +1,7 @@
 #include "../Headers/Presenter.h"
 
 #include "../Headers/Time.h"
+#include <sstream>
 
 Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
 	Time::start();
@@ -30,6 +31,21 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 	}
 	sprites[worldState->creatures.size()] = nullptr;
 	return sprites;
+}
+
+TextItem** Presenter::getTextItems(TextItem** textItems, unsigned int maxTextItems) {
+	std::stringstream numCreaturesTextStream;
+	numCreaturesTextStream << "Creatures: " << worldState->creatures.size();
+
+	TextItem* numCreatures = new TextItem();
+	numCreatures->x = 5.0f;
+	numCreatures->y = 5.0f;
+	numCreatures->scale = 1.0f;
+	numCreatures->text = numCreaturesTextStream.str();
+
+	textItems[0] = numCreatures;
+	textItems[1] = nullptr;
+	return textItems;
 }
 
 BackgroundCell** Presenter::getBackground() {

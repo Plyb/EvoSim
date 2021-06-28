@@ -62,6 +62,9 @@ void Renderer::loadResources() {
     Shader backgroundShader = ResourceManager::getShader("bg");
     spriteRenderer = new SpriteRenderer(spriteShader);
     backgroundRenderer = new BackgroundRenderer(backgroundShader);
+
+    textRenderer = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+    textRenderer->Load("Renderer/Resources/OCRAEXT.TTF", 24);
 }
 
 int Renderer::run() {
@@ -93,6 +96,7 @@ int Renderer::run() {
 void Renderer::render() {
     renderBackground();
     renderSprites();
+    renderText();
 }
 
 void Renderer::renderBackground() {
@@ -121,6 +125,17 @@ void Renderer::renderSprites() {
 
         spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, sprite->color);
         delete sprite;
+    }
+}
+
+void Renderer::renderText() {
+    TextItem* textItems[128];
+    presenter->getTextItems(textItems, 128);
+
+    for (unsigned int i = 0; textItems[i] != nullptr; ++i) {
+        TextItem* textItem = textItems[i];
+        textRenderer->RenderText(textItem->text, textItem->x, textItem->y, textItem->scale);
+        delete textItem;
     }
 }
 
