@@ -37,6 +37,7 @@ void Renderer::configureOpenGL() {
     }
 
     glfwSetKeyCallback(window, key_callback);
+    glfwSetScrollCallback(window, scroll_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // OpenGL configuration
@@ -109,8 +110,8 @@ void Renderer::renderSprites() {
     ResourceManager::getShader("sprite").set("projection", camera.getViewProjectionTransform(), true);
 
 
-    Sprite* sprites[1024]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
-    presenter->getSprites(sprites, 1024);
+    Sprite* sprites[10000]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
+    presenter->getSprites(sprites, 10000);
     for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
         Sprite* sprite = sprites[i];
         Texture2D texture;
@@ -149,4 +150,8 @@ void Renderer::key_callback(GLFWwindow* window, int key, int scancode, int actio
     // when a user presses the escape key, we set the WindowShouldClose property to true, closing the application
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+}
+
+void Renderer::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+    Input::scrollCallback(yoffset);
 }

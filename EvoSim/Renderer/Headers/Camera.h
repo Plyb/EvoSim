@@ -18,8 +18,10 @@ private:
 
 	const float SPEED = 500.0f;
 	const float FAST_MULTIPLIER = 10.0f;
+	const float ZOOM_SPEED = 1.1f;
 	// moves the camera in a direction. Normalizes the direction vector
 	void translate(glm::vec2 direction, bool fast = false);
+	void zoom(double amount);
 	void processInput();
 
 	struct {
