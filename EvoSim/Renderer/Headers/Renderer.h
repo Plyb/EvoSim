@@ -35,8 +35,11 @@ private:
 	void render();
 	void renderSprites();
 	void renderBackground();
+	void renderUi();
 	void renderText();
 	void processInput();
+
+	void renderSpriteArray(Sprite** sprites);
 };
 
 #endif

@@ -65,13 +65,14 @@ void Renderer::loadResources() {
     backgroundRenderer = new BackgroundRenderer(backgroundShader);
 
     textRenderer = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-    textRenderer->Load("Renderer/Resources/OCRAEXT.TTF", 24);
+    textRenderer->Load("Renderer/Resources/OCRAEXT.TTF", 24); 
 }
 
 int Renderer::run() {
     while (!presenter->isReady()) {
         presenter->update();
     }
+    ResourceManager::loadTexture("panel.png", true, "panel.png");
 
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -97,6 +98,7 @@ int Renderer::run() {
 void Renderer::render() {
     renderBackground();
     renderSprites();
+    renderUi();
     renderText();
 }
 
@@ -112,21 +114,16 @@ void Renderer::renderSprites() {
 
     Sprite* sprites[10000]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
     presenter->getSprites(sprites, 10000);
-    for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
-        Sprite* sprite = sprites[i];
-        Texture2D texture;
-        try {
-            // Possible optimization: create a sprite collection system that groups sprites by their image so we don't need to load it every time.
-            // That or load all textures needed in loadResources
-            texture = ResourceManager::getTexture(sprite->image);
-        }
-        catch (const std::out_of_range& ex) {
-            texture = ResourceManager::loadTexture((sprite->image).c_str(), true, sprite->image);
-        }
+    renderSpriteArray(sprites);
+}
 
-        spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, sprite->color);
-        delete sprite;
-    }
+void Renderer::renderUi() {
+    ResourceManager::getShader("sprite").set("projection", glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), 0.0f), true);
+
+
+    Sprite* sprites[10000]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
+    presenter->getUi(sprites, 10000);
+    renderSpriteArray(sprites);
 }
 
 void Renderer::renderText() {
@@ -154,4 +151,22 @@ void Renderer::key_callback(GLFWwindow* window, int key, int scancode, int actio
 
 void Renderer::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     Input::scrollCallback(yoffset);
+}
+
+void Renderer::renderSpriteArray(Sprite** sprites) {
+    for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
+        Sprite* sprite = sprites[i];
+        Texture2D texture;
+        try {
+            // Possible optimization: create a sprite collection system that groups sprites by their image so we don't need to load it every time.
+            // That or load all textures needed in loadResources
+            texture = ResourceManager::getTexture(sprite->image);
+        }
+        catch (const std::out_of_range& ex) {
+            texture = ResourceManager::loadTexture((sprite->image).c_str(), true, sprite->image);
+        }
+
+        spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, sprite->color);
+        delete sprite;
+    }
 }

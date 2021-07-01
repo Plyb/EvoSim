@@ -120,7 +120,7 @@ Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha) {
     }
     // load image
     int width, height, nrChannels;
-    unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 4);
     // now generate texture
     texture.generate(width, height, data);
     // and finally free image data

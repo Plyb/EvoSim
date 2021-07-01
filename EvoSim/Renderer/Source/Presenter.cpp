@@ -33,6 +33,18 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 	return sprites;
 }
 
+Sprite** Presenter::getUi(Sprite** sprites, unsigned int maxSprites) {
+	sprites[0] = new Sprite(
+		"panel.png",
+		glm::vec2(0, camera->getScreenHeight() - 100.0f),
+		0.0f,
+		glm::vec2(camera->getScreenWidth(), 100.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f)
+	);
+	sprites[1] = nullptr;
+	return sprites;
+}
+
 TextItem** Presenter::getTextItems(TextItem** textItems, unsigned int maxTextItems) {
 	std::stringstream numCreaturesTextStream;
 	numCreaturesTextStream << "Creatures: " << worldState->creatures.size();

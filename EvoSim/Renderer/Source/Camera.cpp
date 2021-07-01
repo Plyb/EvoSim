@@ -54,3 +54,11 @@ void Camera::processInput() {
 		zoom(Input::getScroll());
 	}
 }
+
+int Camera::getScreenWidth() {
+	return screenWidth;
+}
+
+int Camera::getScreenHeight() {
+	return screenHeight;
+}

@@ -12,7 +12,7 @@ public:
 	void push(WorldState* worldState);
 	bool getIsFull();
 private:
-	static const int MAX_EPOCHS = 10;
+	static const int MAX_EPOCHS = 100;
 	bool isFull = false;
 
 	class Epoch {

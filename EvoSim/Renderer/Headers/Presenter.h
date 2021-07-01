@@ -16,6 +16,7 @@ public:
 
 	// become a null terminated array of pointers
 	Sprite** getSprites(Sprite** sprites, unsigned int maxSprites);
+	Sprite** getUi(Sprite** sprites, unsigned int maxSprites);
 	TextItem** getTextItems(TextItem** textItems, unsigned int maxTextItems);
 
 	// 2D array of backgound cells
