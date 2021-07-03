@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{057d5fef-9242-4906-81aa-0c76178ab0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Headers">
+      <UniqueIdentifier>{414c15d5-a9f2-4c4b-b82e-87e2f5889504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source">
+      <UniqueIdentifier>{9df49b69-4eef-4037-aaa5-cacd98628fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Renderer\Headers\View">
+      <UniqueIdentifier>{5c3fa169-7bf5-48e3-8435-c8f1aeaa1a29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Headers\Presenter">
+      <UniqueIdentifier>{2fe7c234-ebee-4388-8a11-e62a8843466a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Headers\Util">
+      <UniqueIdentifier>{77bfdbbf-e3fe-41c0-bc1f-6957518a99c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source\Presenter">
+      <UniqueIdentifier>{6478d18d-792d-41e7-a9f8-51e0c4f31323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source\View">
+      <UniqueIdentifier>{65eb9d3c-8292-4abd-bea9-1c25989a9ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source\Util">
+      <UniqueIdentifier>{f2163802-43bf-45de-a921-4d2c594ab0b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{a4edc330-485a-4ac9-9b17-2c3d100dcf1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Headers\Model">
+      <UniqueIdentifier>{cd18a245-bc85-4034-aeae-276c79dbbeae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source\Model">
+      <UniqueIdentifier>{7eb6b69e-2f42-45b7-9c1b-35295a446e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Headers">
+      <UniqueIdentifier>{7b60b454-6a60-4bd9-8cdd-eb7b4481de94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Source">
+      <UniqueIdentifier>{2c442e16-4a9b-49b4-8149-2dfe79cf254c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Simulator">
+      <UniqueIdentifier>{713ed14f-8fda-489f-8d96-8aaa78c8e465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Simulator\Headers">
+      <UniqueIdentifier>{f3f4b4c8-cd1a-4e6b-ac47-43d0c79cd9af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Simulator\Source">
+      <UniqueIdentifier>{0a188a4b-abc9-4e39-b3c6-4b87835f8234}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Renderer\Source\glad.c">
+      <Filter>Renderer\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Renderer.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Shader.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Texture.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\stb_image.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Input.cpp">
+      <Filter>Renderer\Source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Time.cpp">
+      <Filter>Renderer\Source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\ResourceManager.cpp">
+      <Filter>Renderer\Source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\SpriteRenderer.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\Source\Timeline.cpp">
+      <Filter>Shared\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Camera.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Presenter.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Sprite.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator\Simulator.cpp">
+      <Filter>Simulator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shared\Source\WorldState.cpp">
+      <Filter>Shared\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\BackgroundRenderer.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator\Creature.cpp">
+      <Filter>Simulator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulator\Cell.cpp">
+      <Filter>Simulator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\TextRenderer.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Renderer\Headers\Renderer.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Presenter.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Sprite.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\SpriteRenderer.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\stb_image.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Shader.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Texture.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Input.h">
+      <Filter>Renderer\Headers\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\ResourceManager.h">
+      <Filter>Renderer\Headers\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Time.h">
+      <Filter>Renderer\Headers\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Camera.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Headers\Timeline.h">
+      <Filter>Shared\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Headers\WorldState.h">
+      <Filter>Shared\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulator\Simulator.h">
+      <Filter>Simulator\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\BackgroundCell.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\BackgroundRenderer.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulator\Creature.h">
+      <Filter>Simulator\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulator\Cell.h">
+      <Filter>Simulator\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\TextRenderer.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\TextItem.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Renderer\Resources\awesomeface.png">
+      <Filter>Renderer\Resource Files</Filter>
+    </Image>
+    <Image Include="Renderer\Resources\panel.png">
+      <Filter>Renderer\Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Renderer\Resources\sprite.frag">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+    <None Include="Renderer\Resources\sprite.vert">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+    <None Include="Renderer\Resources\bg.vert">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+    <None Include="Renderer\Resources\bg.frag">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+    <None Include="Renderer\Resources\text.vs">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+    <None Include="Renderer\Resources\text.fs">
+      <Filter>Renderer\Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Renderer\Resources\OCRAEXT.TTF">
+      <Filter>Renderer\Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+</Project>
