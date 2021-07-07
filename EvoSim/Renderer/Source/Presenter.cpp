@@ -1,6 +1,7 @@
 #include "../Headers/Presenter.h"
 
 #include "../Headers/Time.h"
+#include "../Headers/Panel.h"
 #include <sstream>
 
 Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
@@ -11,6 +12,8 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 	for (unsigned int i = 0; i < WorldState::WORLD_WIDTH; i++) {
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
+
+	uiElements.push_back(new Panel(0, 0, 0, 0, camera));
 }
 
 void Presenter::update() {
@@ -34,14 +37,11 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 }
 
 Sprite** Presenter::getUi(Sprite** sprites, unsigned int maxSprites) {
-	sprites[0] = new Sprite(
-		"panel.png",
-		glm::vec2(0, camera->getScreenHeight() - 100.0f),
-		0.0f,
-		glm::vec2(camera->getScreenWidth(), 100.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f)
-	);
-	sprites[1] = nullptr;
+	unsigned int numSprites = uiElements.size() < maxSprites - 1 ? uiElements.size() : maxSprites - 1;
+	for (unsigned int i = 0; i < numSprites; i++) {
+		sprites[i] = uiElements.at(i)->getSprite();
+	}
+	sprites[numSprites] = nullptr;
 	return sprites;
 }
 

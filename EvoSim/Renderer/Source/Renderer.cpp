@@ -114,7 +114,7 @@ void Renderer::renderSprites() {
 
     Sprite* sprites[10000]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
     presenter->getSprites(sprites, 10000);
-    renderSpriteArray(sprites);
+    renderSpriteArray(sprites, true);
 }
 
 void Renderer::renderUi() {
@@ -123,7 +123,7 @@ void Renderer::renderUi() {
 
     Sprite* sprites[10000]; // TODO stack corruption occurs because this is too small. Will need to move to heap.
     presenter->getUi(sprites, 10000);
-    renderSpriteArray(sprites);
+    renderSpriteArray(sprites, false);
 }
 
 void Renderer::renderText() {
@@ -153,7 +153,7 @@ void Renderer::scroll_callback(GLFWwindow* window, double xoffset, double yoffse
     Input::scrollCallback(yoffset);
 }
 
-void Renderer::renderSpriteArray(Sprite** sprites) {
+void Renderer::renderSpriteArray(Sprite** sprites, bool deleteSprites) {
     for (unsigned int i = 0; sprites[i] != nullptr; ++i) {
         Sprite* sprite = sprites[i];
         Texture2D texture;
@@ -167,6 +167,8 @@ void Renderer::renderSpriteArray(Sprite** sprites) {
         }
 
         spriteRenderer->drawSprite(texture, sprite->position, sprite->scale, sprite->rotation, sprite->color);
-        delete sprite;
+        if (deleteSprites) {
+            delete sprite;
+        }
     }
 }

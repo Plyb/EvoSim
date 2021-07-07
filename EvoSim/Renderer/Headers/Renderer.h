@@ -39,7 +39,7 @@ private:
 	void renderText();
 	void processInput();
 
-	void renderSpriteArray(Sprite** sprites);
+	void renderSpriteArray(Sprite** sprites, bool deleteSprites);
 };
 
 #endif

@@ -147,6 +147,7 @@
     <ClCompile Include="Renderer\Source\Camera.cpp" />
     <ClCompile Include="Renderer\Source\glad.c" />
     <ClCompile Include="Renderer\Source\Input.cpp" />
+    <ClCompile Include="Renderer\Source\Panel.cpp" />
     <ClCompile Include="Renderer\Source\Presenter.cpp" />
     <ClCompile Include="Renderer\Source\Renderer.cpp" />
     <ClCompile Include="Renderer\Source\ResourceManager.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Renderer\Source\TextRenderer.cpp" />
     <ClCompile Include="Renderer\Source\Texture.cpp" />
     <ClCompile Include="Renderer\Source\Time.cpp" />
+    <ClCompile Include="Renderer\Source\UiElement.cpp" />
     <ClCompile Include="Shared\Source\Timeline.cpp" />
     <ClCompile Include="Shared\Source\WorldState.cpp" />
     <ClCompile Include="Simulator\Cell.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Renderer\Headers\BackgroundRenderer.h" />
     <ClInclude Include="Renderer\Headers\Camera.h" />
     <ClInclude Include="Renderer\Headers\Input.h" />
+    <ClInclude Include="Renderer\Headers\Panel.h" />
     <ClInclude Include="Renderer\Headers\Presenter.h" />
     <ClInclude Include="Renderer\Headers\Renderer.h" />
     <ClInclude Include="Renderer\Headers\ResourceManager.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="Renderer\Headers\TextRenderer.h" />
     <ClInclude Include="Renderer\Headers\Texture.h" />
     <ClInclude Include="Renderer\Headers\Time.h" />
+    <ClInclude Include="Renderer\Headers\UiElement.h" />
     <ClInclude Include="Shared\Headers\Timeline.h" />
     <ClInclude Include="Shared\Headers\WorldState.h" />
     <ClInclude Include="Simulator\Cell.h" />

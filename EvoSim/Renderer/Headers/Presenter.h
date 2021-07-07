@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "TextItem.h"
 #include "BackgroundCell.h"
+#include "UiElement.h"
 #include "../../Shared/Headers/Timeline.h"
 
 class Presenter {
@@ -29,6 +30,8 @@ private:
 	WorldState* worldState = NULL;
 	Timeline* timeline;
 	BackgroundCell** background;
+
+	std::vector<UiElement*> uiElements; // TODO replace this with UiGroups
 };
 
 #endif // !PRESENTER_H

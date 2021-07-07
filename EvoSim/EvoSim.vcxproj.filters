@@ -116,6 +116,12 @@
     <ClCompile Include="Renderer\Source\TextRenderer.cpp">
       <Filter>Renderer\Source\View</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Source\Panel.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\UiElement.cpp">
+      <Filter>Renderer\Source\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer\Headers\Renderer.h">
@@ -177,6 +183,12 @@
     </ClInclude>
     <ClInclude Include="Renderer\Headers\TextItem.h">
       <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Panel.h">
+      <Filter>Renderer\Headers\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\UiElement.h">
+      <Filter>Renderer\Headers\View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
