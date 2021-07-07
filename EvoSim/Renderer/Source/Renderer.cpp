@@ -38,6 +38,7 @@ void Renderer::configureOpenGL() {
 
     glfwSetKeyCallback(window, key_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // OpenGL configuration
@@ -151,6 +152,12 @@ void Renderer::key_callback(GLFWwindow* window, int key, int scancode, int actio
 
 void Renderer::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     Input::scrollCallback(yoffset);
+}
+
+void Renderer::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (action == GLFW_PRESS) {
+        Input::mouseCallback(button);
+    }
 }
 
 void Renderer::renderSpriteArray(Sprite** sprites, bool deleteSprites) {
