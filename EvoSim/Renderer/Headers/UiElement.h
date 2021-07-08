@@ -6,10 +6,9 @@
 class UiElement {
 public:
 	virtual void onClick() = 0;
-	Sprite* getSprite();
-
-protected:
-	Sprite* sprite;
+	virtual void insertSprites(Sprite** spriteArray) const = 0;
+	virtual unsigned int getNumSprites() const = 0;
+	virtual bool clickHits() const = 0;
 };
 
 #endif // !UI_ELEMENT_H

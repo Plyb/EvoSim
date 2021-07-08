@@ -37,11 +37,14 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 }
 
 Sprite** Presenter::getUi(Sprite** sprites, unsigned int maxSprites) {
-	unsigned int numSprites = uiElements.size() < maxSprites - 1 ? uiElements.size() : maxSprites - 1;
-	for (unsigned int i = 0; i < numSprites; i++) {
-		sprites[i] = uiElements.at(i)->getSprite();
+	unsigned int spritesInserted = 0;
+	for (const UiElement* element : uiElements) {
+		if (element->getNumSprites() + spritesInserted < maxSprites) {
+			element->insertSprites(sprites + spritesInserted);
+			spritesInserted += element->getNumSprites();
+		}
 	}
-	sprites[numSprites] = nullptr;
+	sprites[spritesInserted] = nullptr;
 	return sprites;
 }
 

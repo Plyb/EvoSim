@@ -13,3 +13,15 @@ Panel::Panel(int x, int y, int height, int width, Camera* camera, glm::vec3 colo
 void Panel::onClick() {
 	sprite->color = glm::vec3(1.0f, 0.0f, 0.0f);
 }
+
+void Panel::insertSprites(Sprite** spriteArray) const {
+	spriteArray[0] = sprite;
+}
+
+unsigned int Panel::getNumSprites() const {
+	return 1;
+}
+
+bool Panel::clickHits() const {
+	return true;
+}
