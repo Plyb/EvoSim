@@ -40,3 +40,8 @@ double Input::getScroll() {
 int Input::getMouseClick() {
 	return mouseClick;
 }
+
+void Input::getMousePosition(double* xpos, double* ypos) {
+	*xpos = mouseX;
+	*ypos = mouseY;
+}

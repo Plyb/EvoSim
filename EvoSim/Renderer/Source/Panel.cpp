@@ -1,4 +1,5 @@
 #include "../Headers/Panel.h"
+#include "../Headers/Input.h"
 
 Panel::Panel(int x, int y, int height, int width, Camera* camera, glm::vec3 color) {
 	sprite = new Sprite(
@@ -23,5 +24,8 @@ unsigned int Panel::getNumSprites() const {
 }
 
 bool Panel::clickHits() const {
-	return true;
+	double mouseX, mouseY;
+	Input::getMousePosition(&mouseX, &mouseY);
+	return mouseX > sprite->position.x && mouseY < (double)sprite->position.x + sprite->scale.x
+		&& mouseY > sprite->position.y && mouseY < (double)sprite->position.y + sprite->scale.y;
 }

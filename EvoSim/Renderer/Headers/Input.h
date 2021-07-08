@@ -9,6 +9,7 @@ public:
 	static bool getKey(int key);
 	static double getScroll();
 	static int getMouseClick();
+	static void getMousePosition(double* xpos, double* ypos);
 
 	static void scrollCallback(double scroll);
 	static void mouseCallback(int button);

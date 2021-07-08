@@ -2,6 +2,7 @@
 
 #include "../Headers/Time.h"
 #include "../Headers/Panel.h"
+#include "../Headers/Input.h"
 #include <sstream>
 
 Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
@@ -17,8 +18,22 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 }
 
 void Presenter::update() {
+	processClicks();
 	camera->update();
 	timeline->tryGetStateAtFrame(Time::getFrames(), worldState);
+}
+
+void Presenter::processClicks() {
+	if (Input::getMouseClick() > -1) {
+		double mouseX, mouseY;
+		Input::getMousePosition(&mouseX, &mouseY);
+		for (int i = uiElements.size() - 1; i >= 0; i--) {
+			if (uiElements.at(i)->clickHits()) {
+				uiElements.at(i)->onClick();
+				break;
+			}
+		}
+	}
 }
 
 Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
@@ -42,6 +57,9 @@ Sprite** Presenter::getUi(Sprite** sprites, unsigned int maxSprites) {
 		if (element->getNumSprites() + spritesInserted < maxSprites) {
 			element->insertSprites(sprites + spritesInserted);
 			spritesInserted += element->getNumSprites();
+		}
+		else {
+			break;
 		}
 	}
 	sprites[spritesInserted] = nullptr;
