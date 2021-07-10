@@ -2,6 +2,7 @@
 
 #include "../Headers/Time.h"
 #include "../Headers/Panel.h"
+#include "../Headers/Slider.h"
 #include "../Headers/Input.h"
 #include <sstream>
 
@@ -14,7 +15,9 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
-	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth(), camera));
+	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth()));
+	uiElements.push_back(new Slider(50.0f, camera->getScreenHeight() - 50.0f, 10.0f, 100.0f));
+
 }
 
 void Presenter::update() {
