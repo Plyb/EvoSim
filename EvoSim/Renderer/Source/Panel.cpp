@@ -1,12 +1,12 @@
 #include "../Headers/Panel.h"
 #include "../Headers/Input.h"
 
-Panel::Panel(int x, int y, int height, int width, Camera* camera, glm::vec3 color) {
+Panel::Panel(float x, float y, float height, float width, Camera* camera, glm::vec3 color) {
 	sprite = new Sprite(
 		"panel.png",
-		glm::vec2(0, camera->getScreenHeight() - 100.0f),
+		glm::vec2(x, y),
 		0.0f,
-		glm::vec2(camera->getScreenWidth(), 100.0f),
+		glm::vec2(width, height),
 		color
 	);
 }

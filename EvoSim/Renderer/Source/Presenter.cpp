@@ -14,7 +14,7 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
-	uiElements.push_back(new Panel(0, 0, 0, 0, camera));
+	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth(), camera));
 }
 
 void Presenter::update() {
