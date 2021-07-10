@@ -45,7 +45,7 @@ double Input::getScroll() {
 	return scroll;
 }
 
-int Input::getMouseClick() {
+int Input::getMouseDown() {
 	return mouseClick;
 }
 

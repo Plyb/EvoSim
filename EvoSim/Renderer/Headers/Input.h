@@ -8,7 +8,7 @@ public:
 	static void update(GLFWwindow* window);
 	static bool getKey(int key);
 	static double getScroll();
-	static int getMouseClick();
+	static int getMouseDown();
 	static int getMouseUp();
 	static void getMousePosition(double* xpos, double* ypos);
 

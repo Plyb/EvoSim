@@ -5,6 +5,7 @@
 #include "../Headers/Slider.h"
 #include "../Headers/Input.h"
 #include <sstream>
+#include <iostream>
 
 Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timeline(timeline) {
 	Time::start();
@@ -27,12 +28,11 @@ void Presenter::update() {
 }
 
 void Presenter::processClicks() {
-	if (Input::getMouseClick() > -1 || Input::getMouseUp() > -1) {
+	if (Input::getMouseDown() > -1 || Input::getMouseUp() > -1) {
 		double mouseX, mouseY;
 		Input::getMousePosition(&mouseX, &mouseY);
 		for (int i = uiElements.size() - 1; i >= 0; i--) {
-			if (uiElements.at(i)->clickHits()) {
-				uiElements.at(i)->onClick();
+			if (uiElements.at(i)->onClick()) {
 				break;
 			}
 		}

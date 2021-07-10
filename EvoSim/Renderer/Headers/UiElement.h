@@ -5,9 +5,11 @@
 
 class UiElement {
 public:
-	virtual void onClick() = 0;
+	// Returns true if should block click
+	virtual bool onClick() = 0;
 	virtual void insertSprites(Sprite** spriteArray) = 0;
 	virtual unsigned int getNumSprites() const = 0;
+protected:
 	virtual bool clickHits() const = 0;
 };
 

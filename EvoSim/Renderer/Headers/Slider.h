@@ -7,7 +7,7 @@ class Slider : public RectangularUiElement {
 public:
 	Slider(float x, float y, float height, float width);
 
-	virtual void onClick() override;
+	virtual bool onClick() override;
 	virtual void insertSprites(Sprite** spriteArray) override;
 	virtual unsigned int getNumSprites() const override;
 private:

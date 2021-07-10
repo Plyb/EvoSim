@@ -7,7 +7,7 @@
 class Panel : public RectangularUiElement {
 public:
 	Panel(float x, float y, float height, float width, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f));
-	void onClick() override;
+	bool onClick() override;
 	void insertSprites(Sprite** spriteArray) override;
 	unsigned int getNumSprites() const override;
 };
