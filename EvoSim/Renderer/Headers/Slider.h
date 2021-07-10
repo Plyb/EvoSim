@@ -8,11 +8,12 @@ public:
 	Slider(float x, float y, float height, float width);
 
 	virtual void onClick() override;
-	virtual void insertSprites(Sprite** spriteArray) const override;
+	virtual void insertSprites(Sprite** spriteArray) override;
 	virtual unsigned int getNumSprites() const override;
 private:
 	Sprite* handleSprite;
 	float handlePos;
+	bool dragging = false;
 };
 
 #endif // !SLIDER_H

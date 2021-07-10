@@ -15,12 +15,20 @@ Slider::Slider(float x, float y, float height, float width)
 }
 
 void Slider::onClick() {
-	double mouseX, mouseY;
-	Input::getMousePosition(&mouseX, &mouseY);
-	handlePos = mouseX - handleSprite->scale.y / 2;
+	if (Input::getMouseClick() == GLFW_MOUSE_BUTTON_LEFT) {
+		dragging = true;
+	}
+	else if (Input::getMouseUp() == GLFW_MOUSE_BUTTON_LEFT) {
+		dragging = false;
+	}
 }
 
-void Slider::insertSprites(Sprite** spriteArray) const {
+void Slider::insertSprites(Sprite** spriteArray) {
+	if (dragging) {
+		double mouseX, mouseY;
+		Input::getMousePosition(&mouseX, &mouseY);
+		handlePos = mouseX - handleSprite->scale.y / 2;
+	}
 	handleSprite->position.x = handlePos;
 	spriteArray[0] = basePanelSprite;
 	spriteArray[1] = handleSprite;

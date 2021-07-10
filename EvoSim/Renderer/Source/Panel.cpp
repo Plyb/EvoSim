@@ -6,7 +6,7 @@ Panel::Panel(float x, float y, float height, float width, glm::vec3 color)
 
 void Panel::onClick() {}
 
-void Panel::insertSprites(Sprite** spriteArray) const {
+void Panel::insertSprites(Sprite** spriteArray) {
 	spriteArray[0] = basePanelSprite;
 }
 

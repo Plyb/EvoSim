@@ -6,7 +6,7 @@
 class UiElement {
 public:
 	virtual void onClick() = 0;
-	virtual void insertSprites(Sprite** spriteArray) const = 0;
+	virtual void insertSprites(Sprite** spriteArray) = 0;
 	virtual unsigned int getNumSprites() const = 0;
 	virtual bool clickHits() const = 0;
 };

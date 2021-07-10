@@ -27,7 +27,7 @@ void Presenter::update() {
 }
 
 void Presenter::processClicks() {
-	if (Input::getMouseClick() > -1) {
+	if (Input::getMouseClick() > -1 || Input::getMouseUp() > -1) {
 		double mouseX, mouseY;
 		Input::getMousePosition(&mouseX, &mouseY);
 		for (int i = uiElements.size() - 1; i >= 0; i--) {
@@ -56,7 +56,7 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 
 Sprite** Presenter::getUi(Sprite** sprites, unsigned int maxSprites) {
 	unsigned int spritesInserted = 0;
-	for (const UiElement* element : uiElements) {
+	for (UiElement* element : uiElements) {
 		if (element->getNumSprites() + spritesInserted < maxSprites) {
 			element->insertSprites(sprites + spritesInserted);
 			spritesInserted += element->getNumSprites();

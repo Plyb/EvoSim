@@ -158,6 +158,9 @@ void Renderer::mouse_button_callback(GLFWwindow* window, int button, int action,
     if (action == GLFW_PRESS) {
         Input::mouseCallback(button);
     }
+    else if (action == GLFW_RELEASE) {
+        Input::mouseUpCallback(button);
+    }
 }
 
 void Renderer::renderSpriteArray(Sprite** sprites, bool deleteSprites) {
