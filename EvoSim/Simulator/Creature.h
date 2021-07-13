@@ -3,6 +3,8 @@
 
 #include "../Shared/Headers/WorldState.h"
 #include "Cell.h"
+#include <vector>
+#include <random>
 
 class Creature {
 public:
@@ -11,6 +13,8 @@ public:
 	void update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
 	void remapCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
 	Creature* reproduce() const;
+	bool isDying() const;
+	bool isReproducing(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const;
 
 	CreatureState* getState() const;
 private:
@@ -18,6 +22,10 @@ private:
 
 	Cell* getCurrentCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const;
 	const CellState* getCurrentCellState(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const;
+
+	std::vector<double> runNN(std::vector<double> input_values);
+
+	double sigmoid(double value);
 
 	static const float BASE_ENERGY_CONSUMPTION;
 	static const float BASE_ABSORPTION_RATE;

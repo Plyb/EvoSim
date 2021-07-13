@@ -10,6 +10,15 @@ struct CreatureState {
 	float energy;
 
 	float reproductionEnergy = 100;
+	int reproduce_count;
+
+	//Color values (for communications)
+	double r;
+	double g;
+	double b;
+
+
+	std::vector<std::vector<std::vector<double>>> weights;
 
 	float eaten;
 };

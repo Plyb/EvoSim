@@ -11,6 +11,12 @@ public:
 
 	void clearVisitingCreatures();
 	void pushVisitingCreature(CreatureState* creature);
+	
+	const std::vector<CreatureState*> getVisitingCreatures();
+
+	double get_color_r(); // Get the average 'red' color value for the creatures in the cell.
+	double get_color_g(); // Get the average 'green' color value for the creatures in the cell.
+	double get_color_b(); // Get the average 'blue' color value for the creatures in the cell.
 
 	const CellState* getState() const;
 private:

@@ -67,7 +67,7 @@ void Simulator::removeCreatures() {
 void Simulator::addCreatures() {
 	std::vector<Creature*> creaturesToAdd;
 	for (Creature* creature : creatures) {
-		if (creature->getState()->energy >= creature->getState()->reproductionEnergy) {
+		if (creature->isReproducing(ground)) {
 			creaturesToAdd.push_back(creature->reproduce());
 		}
 	}
