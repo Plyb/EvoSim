@@ -13,6 +13,7 @@ public:
 	virtual unsigned int getNumSprites() const override;
 
 	float getValue() const;
+	void setValue(float value);
 
 	class Listener {
 	public:

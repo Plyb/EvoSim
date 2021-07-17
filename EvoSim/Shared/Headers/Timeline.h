@@ -11,6 +11,7 @@ public:
 	bool tryGetStateAtFrame(int frame, WorldState*& worldState);
 	void push(WorldState* worldState);
 	bool getIsFull();
+	unsigned int getNumFramesAvailable() const;
 private:
 	static const int MAX_EPOCHS = 10;
 	bool isFull = false;
@@ -31,6 +32,8 @@ private:
 
 	std::mutex lock;
 	std::vector<Epoch*> epochs;
+
+	unsigned int numFramesAvailable = 0;
 };
 
 #endif // !TIMELINE_H

@@ -26,6 +26,7 @@ void Timeline::push(WorldState* worldState) {
 	if (pushEpoch->getSize() == Epoch::MAX_SIZE) {
 		lock.lock();
 		epochs.push_back(pushEpoch);
+		numFramesAvailable += Epoch::MAX_SIZE;
 		lock.unlock();
 		pushEpoch = new Epoch();
 		if (epochs.size() == MAX_EPOCHS) {
@@ -36,6 +37,10 @@ void Timeline::push(WorldState* worldState) {
 
 bool Timeline::getIsFull() {
 	return isFull;
+}
+
+unsigned int Timeline::getNumFramesAvailable() const {
+	return numFramesAvailable;
 }
 
 void Timeline::Epoch::push(WorldState* worldState) {

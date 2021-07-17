@@ -47,6 +47,11 @@ float Slider::getValue() const {
 	return (handleCenter - basePanelSprite->position.x) / basePanelSprite->scale.x;
 }
 
+void Slider::setValue(float value) {
+	const float handleMid = basePanelSprite->position.x + basePanelSprite->scale.x * value;
+	handlePos = handleMid - handleSprite->scale.x / 2;
+}
+
 void Slider::registerListener(Listener* listener) {
 	listeners.push_back(listener);
 }

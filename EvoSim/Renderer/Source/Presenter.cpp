@@ -25,6 +25,7 @@ void Presenter::update() {
 	processClicks();
 	camera->update();
 	timeline->tryGetStateAtFrame(Time::getFrames(), worldState);
+	timelineSlider->setValue(Time::getFrames() / (float) timeline->getNumFramesAvailable());
 }
 
 void Presenter::processClicks() {
@@ -101,7 +102,7 @@ bool Presenter::isReady() {
 
 void Presenter::onSliderUpdated(Slider* slider) {
 	if (slider == timelineSlider) {
-		const unsigned int frame = 1024 * slider->getValue();
+		const unsigned int frame = timeline->getNumFramesAvailable() * slider->getValue();
 		Time::timeTravelTo(frame);
 	}
 }

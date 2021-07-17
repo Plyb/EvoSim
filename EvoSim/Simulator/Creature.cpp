@@ -118,7 +118,7 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 	else
 		state->reproduce_count = 0;
 
-	state->xpos += outputs.at(4) * 2.0 - 1.0;
+	state->xpos += outputs.at(4) * 2.0 - 1.0 + 0.2; // adding 0.2 just for testing
 	state->ypos += outputs.at(5) * 2.0 - 1.0;
 	state->energy -= sqrt(pow(outputs.at(4) * 2.0 - 1.0, 2) + pow(outputs.at(5) * 2.0 - 1.0, 2)) / 100.0;
 
