@@ -5,7 +5,8 @@ public:
 	static float getDeltaTime();
 	static void updateDeltaTime();
 	static int getFrames();
-	static void setBasisFrame(unsigned int frame);
+
+	static void timeTravelTo(unsigned int frame);
 private:
 	static const int FPS = 24;
 
@@ -13,5 +14,6 @@ private:
 	static float lastFrame;
 	static float deltaTime;
 
-	static unsigned int basisFrame;
+	static double anchor;
+	static unsigned int offset;
 };

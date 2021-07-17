@@ -2,6 +2,7 @@
 #define SLIDER_H
 
 #include "RectangularUiElement.h"
+#include <vector>
 
 class Slider : public RectangularUiElement {
 public:
@@ -12,10 +13,19 @@ public:
 	virtual unsigned int getNumSprites() const override;
 
 	float getValue() const;
+
+	class Listener {
+	public:
+		virtual void onSliderUpdated(Slider* slider) = 0;
+	};
+
+	void registerListener(Listener* listener);
 private:
 	Sprite* handleSprite;
 	float handlePos;
 	bool dragging = false;
+
+	std::vector<Listener*> listeners;
 
 	void updateHandlePos();
 };

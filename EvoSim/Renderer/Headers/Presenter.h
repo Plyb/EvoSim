@@ -5,10 +5,10 @@
 #include "Sprite.h"
 #include "TextItem.h"
 #include "BackgroundCell.h"
-#include "UiElement.h"
+#include "Slider.h"
 #include "../../Shared/Headers/Timeline.h"
 
-class Presenter {
+class Presenter : public Slider::Listener {
 public:
 	Presenter(Camera* camera, Timeline* timeline);
 	// TODO create a destructor
@@ -26,13 +26,16 @@ public:
 
 	bool isReady();
 
+	void onSliderUpdated(Slider* slider) override;
+
 private:
 	Camera* camera;
 	WorldState* worldState = NULL;
 	Timeline* timeline;
 	BackgroundCell** background;
 
-	std::vector<UiElement*> uiElements; // TODO replace this with UiGroups
+	std::vector<UiElement*> uiElements;
+	Slider* timelineSlider;
 };
 
 #endif // !PRESENTER_H

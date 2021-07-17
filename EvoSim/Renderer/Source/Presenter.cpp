@@ -13,8 +13,11 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
+	timelineSlider = new Slider(50.0f, camera->getScreenHeight() - 50.0f, 10.0f, camera->getScreenWidth() - 100.0f);
+	timelineSlider->registerListener(this);
+
 	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth()));
-	uiElements.push_back(new Slider(50.0f, camera->getScreenHeight() - 50.0f, 10.0f, camera->getScreenWidth() - 100.0f));
+	uiElements.push_back(timelineSlider);
 
 }
 
@@ -94,4 +97,11 @@ BackgroundCell** Presenter::getBackground() {
 
 bool Presenter::isReady() {
 	return worldState != NULL;
+}
+
+void Presenter::onSliderUpdated(Slider* slider) {
+	if (slider == timelineSlider) {
+		const unsigned int frame = 1024 * slider->getValue();
+		Time::timeTravelTo(frame);
+	}
 }

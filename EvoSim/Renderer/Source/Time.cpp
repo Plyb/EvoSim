@@ -5,10 +5,12 @@
 
 float Time::deltaTime = 0.0f;
 float Time::lastFrame = 0.0f;
-unsigned int Time::basisFrame = 0;
+double Time::anchor = 0.0f;
+unsigned int Time::offset = 0;
+
 
 void Time::start() {
-	setBasisFrame(getFrames());
+	anchor = glfwGetTime();
 }
 
 void Time::updateDeltaTime() {
@@ -22,9 +24,10 @@ float Time::getDeltaTime() {
 }
 
 int Time::getFrames() {
-	return (int)(glfwGetTime() * FPS) - basisFrame;
+	return (int)((glfwGetTime() - anchor) * FPS) + offset;
 }
 
-void Time::setBasisFrame(unsigned int frame) {
-	basisFrame = frame;
+void Time::timeTravelTo(unsigned int frame) {
+	anchor = glfwGetTime();
+	offset = frame;
 }
