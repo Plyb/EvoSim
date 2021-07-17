@@ -10,10 +10,14 @@ public:
 	virtual bool onClick() override;
 	virtual void insertSprites(Sprite** spriteArray) override;
 	virtual unsigned int getNumSprites() const override;
+
+	float getValue() const;
 private:
 	Sprite* handleSprite;
 	float handlePos;
 	bool dragging = false;
+
+	void updateHandlePos();
 };
 
 #endif // !SLIDER_H

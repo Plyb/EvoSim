@@ -1,6 +1,7 @@
 #include "../Headers/Slider.h"
 
 #include "../Headers/Input.h"
+#include <iostream>
 
 Slider::Slider(float x, float y, float height, float width) 
 		: RectangularUiElement(x, y, height, width, glm::vec3(0.9f, 0.9f, 0.9f)) {
@@ -22,12 +23,29 @@ bool Slider::onClick() {
 
 	if (Input::getMouseUp() == GLFW_MOUSE_BUTTON_LEFT) {
 		dragging = false;
+		updateHandlePos();
 	}
 
 	return false;
 }
 
 void Slider::insertSprites(Sprite** spriteArray) {
+	updateHandlePos();
+	handleSprite->position.x = handlePos;
+	spriteArray[0] = basePanelSprite;
+	spriteArray[1] = handleSprite;
+}
+
+unsigned int Slider::getNumSprites() const {
+    return 2;
+}
+
+float Slider::getValue() const {
+	const float handleCenter = handlePos + handleSprite->scale.y / 2;
+	return (handleCenter - basePanelSprite->position.x) / basePanelSprite->scale.x;
+}
+
+void Slider::updateHandlePos() {
 	if (dragging) {
 		double mouseX, mouseY;
 		Input::getMousePosition(&mouseX, &mouseY);
@@ -42,12 +60,4 @@ void Slider::insertSprites(Sprite** spriteArray) {
 		}
 		handlePos -= handleSprite->scale.y / 2;
 	}
-	handleSprite->position.x = handlePos;
-	spriteArray[0] = basePanelSprite;
-	spriteArray[1] = handleSprite;
-}
-
-unsigned int Slider::getNumSprites() const
-{
-    return 2;
 }

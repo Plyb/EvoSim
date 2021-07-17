@@ -73,6 +73,7 @@ int Renderer::run() {
     while (!presenter->isReady()) {
         presenter->update();
     }
+    Time::start();
     ResourceManager::loadTexture("panel.png", true, "panel.png");
 
     while (!glfwWindowShouldClose(window)) {
