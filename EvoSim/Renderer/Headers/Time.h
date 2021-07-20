@@ -7,6 +7,9 @@ public:
 	static int getFrames();
 
 	static void timeTravelTo(unsigned int frame);
+	static void setSpeed(double speed);
+
+	static double getSpeedSliderExponent();
 private:
 	static const int FPS = 24;
 
@@ -16,4 +19,5 @@ private:
 
 	static double anchor;
 	static unsigned int offset;
+	static double speed;
 };

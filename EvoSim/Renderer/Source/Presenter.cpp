@@ -13,12 +13,15 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
-	timelineSlider = new Slider(50.0f, camera->getScreenHeight() - 50.0f, 10.0f, camera->getScreenWidth() - 100.0f);
+	timelineSlider = new Slider(50.0f, camera->getScreenHeight() - 80.0f, 10.0f, camera->getScreenWidth() - 100.0f);
 	timelineSlider->registerListener(this);
+
+	timeSpeedSlider = new Slider(50.0f, camera->getScreenHeight() - 40.0f, 10.0f, 200.0f);
+	timeSpeedSlider->registerListener(this);
 
 	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth()));
 	uiElements.push_back(timelineSlider);
-
+	uiElements.push_back(timeSpeedSlider);
 }
 
 void Presenter::update() {
@@ -104,5 +107,9 @@ void Presenter::onSliderUpdated(Slider* slider) {
 	if (slider == timelineSlider) {
 		const unsigned int frame = timeline->getNumFramesAvailable() * slider->getValue();
 		Time::timeTravelTo(frame);
+	}
+	else if (slider == timeSpeedSlider) {
+		const float newSpeed = pow(2.0f, slider->getValue() * Time::getSpeedSliderExponent()) - 1.0f;
+		Time::setSpeed(newSpeed);
 	}
 }

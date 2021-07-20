@@ -36,6 +36,7 @@ private:
 
 	std::vector<UiElement*> uiElements;
 	Slider* timelineSlider;
+	Slider* timeSpeedSlider;
 };
 
 #endif // !PRESENTER_H

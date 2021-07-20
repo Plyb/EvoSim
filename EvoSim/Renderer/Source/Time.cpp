@@ -7,6 +7,7 @@ float Time::deltaTime = 0.0f;
 float Time::lastFrame = 0.0f;
 double Time::anchor = 0.0f;
 unsigned int Time::offset = 0;
+double Time::speed = 1.0f;
 
 
 void Time::start() {
@@ -24,10 +25,19 @@ float Time::getDeltaTime() {
 }
 
 int Time::getFrames() {
-	return (int)((glfwGetTime() - anchor) * FPS) + offset;
+	return (int)((glfwGetTime() - anchor) * FPS * speed) + offset;
 }
 
 void Time::timeTravelTo(unsigned int frame) {
 	anchor = glfwGetTime();
 	offset = frame;
+}
+
+void Time::setSpeed(double speed) {
+	timeTravelTo(getFrames());
+	Time::speed = speed;
+}
+
+double Time::getSpeedSliderExponent() {
+	return 5.0f;
 }
