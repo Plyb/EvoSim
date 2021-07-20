@@ -76,9 +76,6 @@
     <ClCompile Include="Renderer\Source\Input.cpp">
       <Filter>Renderer\Source\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Source\Time.cpp">
-      <Filter>Renderer\Source\Util</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Source\ResourceManager.cpp">
       <Filter>Renderer\Source\Util</Filter>
     </ClCompile>
@@ -128,6 +125,15 @@
     <ClCompile Include="Renderer\Headers\RectangularUiElement.cpp">
       <Filter>Renderer\Source\Presenter</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Source\Time.cpp">
+      <Filter>Renderer\Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\TimelineSlider.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\TimeSpeedSlider.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer\Headers\Renderer.h">
@@ -155,9 +161,6 @@
       <Filter>Renderer\Headers\Util</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Headers\ResourceManager.h">
-      <Filter>Renderer\Headers\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Headers\Time.h">
       <Filter>Renderer\Headers\Util</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Headers\Camera.h">
@@ -200,6 +203,15 @@
       <Filter>Renderer\Headers\Presenter</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Headers\RectangularUiElement.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Time.h">
+      <Filter>Renderer\Headers\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\TimelineSlider.h">
+      <Filter>Renderer\Headers\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\TimeSpeedSlider.h">
       <Filter>Renderer\Headers\Presenter</Filter>
     </ClInclude>
   </ItemGroup>

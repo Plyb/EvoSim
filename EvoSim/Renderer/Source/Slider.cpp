@@ -23,9 +23,7 @@ bool Slider::onClick() {
 	if (Input::getMouseUp() == GLFW_MOUSE_BUTTON_LEFT) {
 		dragging = false;
 		updateHandlePos();
-		for (Listener* listener : listeners) {
-			listener->onSliderUpdated(this);
-		}
+		onSliderUpdated();
 	}
 
 	return false;
@@ -50,10 +48,6 @@ float Slider::getValue() const {
 void Slider::setValue(float value) {
 	const float handleMid = basePanelSprite->position.x + basePanelSprite->scale.x * value;
 	handlePos = handleMid - handleSprite->scale.x / 2;
-}
-
-void Slider::registerListener(Listener* listener) {
-	listeners.push_back(listener);
 }
 
 void Slider::updateHandlePos() {

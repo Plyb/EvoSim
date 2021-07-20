@@ -14,21 +14,14 @@ public:
 
 	float getValue() const;
 	void setValue(float value);
-
-	class Listener {
-	public:
-		virtual void onSliderUpdated(Slider* slider) = 0;
-	};
-
-	void registerListener(Listener* listener);
 private:
 	Sprite* handleSprite;
 	float handlePos;
 	bool dragging = false;
 
-	std::vector<Listener*> listeners;
-
 	void updateHandlePos();
+
+	virtual void onSliderUpdated() = 0;
 };
 
 #endif // !SLIDER_H

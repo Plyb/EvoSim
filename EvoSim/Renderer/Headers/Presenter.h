@@ -8,7 +8,7 @@
 #include "Slider.h"
 #include "../../Shared/Headers/Timeline.h"
 
-class Presenter : public Slider::Listener {
+class Presenter {
 public:
 	Presenter(Camera* camera, Timeline* timeline);
 	// TODO create a destructor
@@ -25,8 +25,6 @@ public:
 	BackgroundCell** getBackground();
 
 	bool isReady();
-
-	void onSliderUpdated(Slider* slider) override;
 
 private:
 	Camera* camera;

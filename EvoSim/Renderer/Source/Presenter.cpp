@@ -2,7 +2,8 @@
 
 #include "../Headers/Time.h"
 #include "../Headers/Panel.h"
-#include "../Headers/Slider.h"
+#include "../Headers/TimelineSlider.h"
+#include "../Headers/TimeSpeedSlider.h"
 #include "../Headers/Input.h"
 #include <sstream>
 #include <iostream>
@@ -13,11 +14,8 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
-	timelineSlider = new Slider(50.0f, camera->getScreenHeight() - 80.0f, 10.0f, camera->getScreenWidth() - 100.0f);
-	timelineSlider->registerListener(this);
-
-	timeSpeedSlider = new Slider(50.0f, camera->getScreenHeight() - 40.0f, 10.0f, 200.0f);
-	timeSpeedSlider->registerListener(this);
+	timelineSlider = new TimelineSlider(50.0f, camera->getScreenHeight() - 80.0f, 10.0f, camera->getScreenWidth() - 100.0f, timeline);
+	timeSpeedSlider = new TimeSpeedSlider(50.0f, camera->getScreenHeight() - 40.0f, 10.0f, 200.0f);
 
 	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth()));
 	uiElements.push_back(timelineSlider);
@@ -101,15 +99,4 @@ BackgroundCell** Presenter::getBackground() {
 
 bool Presenter::isReady() {
 	return worldState != NULL;
-}
-
-void Presenter::onSliderUpdated(Slider* slider) {
-	if (slider == timelineSlider) {
-		const unsigned int frame = timeline->getNumFramesAvailable() * slider->getValue();
-		Time::timeTravelTo(frame);
-	}
-	else if (slider == timeSpeedSlider) {
-		const float newSpeed = pow(2.0f, slider->getValue() * Time::getSpeedSliderExponent()) - 1.0f;
-		Time::setSpeed(newSpeed);
-	}
 }

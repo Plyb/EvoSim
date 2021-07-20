@@ -37,7 +37,3 @@ void Time::setSpeed(double speed) {
 	timeTravelTo(getFrames());
 	Time::speed = speed;
 }
-
-double Time::getSpeedSliderExponent() {
-	return 5.0f;
-}
