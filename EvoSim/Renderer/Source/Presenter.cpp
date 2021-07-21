@@ -31,11 +31,23 @@ void Presenter::update() {
 
 void Presenter::processClicks() {
 	if (Input::getMouseDown() > -1 || Input::getMouseUp() > -1) {
+		bool uiHit = false;
 		double mouseX, mouseY;
 		Input::getMousePosition(&mouseX, &mouseY);
 		for (int i = uiElements.size() - 1; i >= 0; i--) {
 			if (uiElements.at(i)->onClick()) {
+				uiHit = true;
 				break;
+			}
+		}
+
+		if (!uiHit) {
+			for (CreatureState& creature : worldState->creatures) {
+				glm::vec2 mouseWorldPos = camera->screenToWorld(mouseX, mouseY);
+				if (creature.xpos < mouseWorldPos.x && creature.xpos + 1 > mouseWorldPos.x
+						&& creature.ypos < mouseWorldPos.y && creature.ypos + 1 > mouseWorldPos.y) {
+					std::cout << "clicked creature" << std::endl;
+				}
 			}
 		}
 	}
@@ -46,9 +58,9 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 		CreatureState creature = worldState->creatures[i];
 		sprites[i] = new Sprite(
 			"awesomeface.png",
-			glm::vec2(creature.xpos * 100.0f, creature.ypos * 100.0f),
+			glm::vec2(creature.xpos * camera->pixelsPerUnit, creature.ypos * camera->pixelsPerUnit),
 			creature.rot,
-			glm::vec2(100.0f, 100.0f),
+			glm::vec2(camera->pixelsPerUnit, camera->pixelsPerUnit),
 			glm::vec3(creature.energy / 300.0f, creature.energy / 300.0f, creature.energy / 300.0f)
 		);
 	}

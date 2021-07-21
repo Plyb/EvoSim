@@ -9,12 +9,16 @@ class Camera {
 public:
 	Camera(int screenWidth, int screenHeight);
 	glm::mat4 getViewProjectionTransform();
+	glm::vec2 screenToWorld(double screenX, double screenY) const;
 	
 	void update();
 
 	int getScreenWidth();
 	int getScreenHeight();
+
+	const float pixelsPerUnit = 100.0f;
 private:
+
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 1.0f);
 	float scale = 1.0f;
 	int screenWidth, screenHeight;

@@ -29,6 +29,10 @@ glm::mat4 Camera::getViewProjectionTransform() {
 	return projectionTransform * viewTransform;
 }
 
+glm::vec2 Camera::screenToWorld(double screenX, double screenY) const {
+	return glm::vec2(screenX + position.x - screenWidth / 2.0f, screenHeight / 2.0f - screenY + position.y) / pixelsPerUnit;
+}
+
 void Camera::translate(glm::vec2 direction, bool fast) {
 	float multiplier = (fast ? FAST_MULTIPLIER : 1.0f) / scale;
 	position += glm::normalize(glm::vec3(direction, 0.0f)) * SPEED * multiplier * Time::getDeltaTime();

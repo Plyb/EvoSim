@@ -5,7 +5,7 @@ Panel::Panel(float x, float y, float height, float width, glm::vec3 color)
 	: RectangularUiElement(x, y, height, width, color) {}
 
 bool Panel::onClick() {
-	return Input::getMouseDown() == GLFW_MOUSE_BUTTON_LEFT;
+	return clickHits();
 }
 
 void Panel::insertSprites(Sprite** spriteArray) {
