@@ -1,8 +1,8 @@
 #include "../Headers/Panel.h"
 #include "../Headers/Input.h"
 
-Panel::Panel(float x, float y, float height, float width, glm::vec3 color)
-	: RectangularUiElement(x, y, height, width, color) {}
+Panel::Panel(float x, float y, float width, float height, glm::vec3 color)
+	: RectangularUiElement(x, y, width, height, color) {}
 
 bool Panel::onClick() {
 	return clickHits();

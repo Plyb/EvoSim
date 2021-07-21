@@ -6,6 +6,7 @@
 #include "TextItem.h"
 #include "BackgroundCell.h"
 #include "Slider.h"
+#include "SelectedInfoPanel.h"
 #include "../../Shared/Headers/Timeline.h"
 
 class Presenter {
@@ -35,6 +36,7 @@ private:
 	std::vector<UiElement*> uiElements;
 	Slider* timelineSlider;
 	Slider* timeSpeedSlider;
+	SelectedInfoPanel* selectedInfoPanel;
 };
 
 #endif // !PRESENTER_H

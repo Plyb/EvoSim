@@ -5,7 +5,7 @@
 
 class RectangularUiElement : public UiElement {
 public:
-	RectangularUiElement(float x, float y, float height, float width, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f));
+	RectangularUiElement(float x, float y, float width, float height, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f));
 protected:
 	virtual bool clickHits() const override;
 	Sprite* basePanelSprite;

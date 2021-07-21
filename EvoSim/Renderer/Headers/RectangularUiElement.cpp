@@ -2,7 +2,7 @@
 
 #include "../Headers/Input.h"
 
-RectangularUiElement::RectangularUiElement(float x, float y, float height, float width, glm::vec3 color) {
+RectangularUiElement::RectangularUiElement(float x, float y, float width, float height, glm::vec3 color) {
 	basePanelSprite = new Sprite(
 		"panel.png",
 		glm::vec2(x, y),

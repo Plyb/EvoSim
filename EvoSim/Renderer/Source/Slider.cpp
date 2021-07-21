@@ -2,8 +2,8 @@
 
 #include "../Headers/Input.h"
 
-Slider::Slider(float x, float y, float height, float width) 
-		: RectangularUiElement(x, y, height, width, glm::vec3(0.9f, 0.9f, 0.9f)) {
+Slider::Slider(float x, float y, float width, float height) 
+		: RectangularUiElement(x, y, width, height, glm::vec3(0.9f, 0.9f, 0.9f)) {
 	handleSprite = new Sprite(
 		"panel.png", 
 		glm::vec2(x, y),

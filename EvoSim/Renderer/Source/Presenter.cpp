@@ -4,6 +4,7 @@
 #include "../Headers/Panel.h"
 #include "../Headers/TimelineSlider.h"
 #include "../Headers/TimeSpeedSlider.h"
+#include "../Headers/SelectedInfoPanel.h"
 #include "../Headers/Input.h"
 #include <sstream>
 #include <iostream>
@@ -14,12 +15,14 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 		background[i] = new BackgroundCell[WorldState::WORLD_WIDTH];
 	}
 
-	timelineSlider = new TimelineSlider(50.0f, camera->getScreenHeight() - 80.0f, 10.0f, camera->getScreenWidth() - 100.0f, timeline);
-	timeSpeedSlider = new TimeSpeedSlider(50.0f, camera->getScreenHeight() - 40.0f, 10.0f, 200.0f);
+	timelineSlider = new TimelineSlider(50.0f, camera->getScreenHeight() - 80.0f, camera->getScreenWidth() - 100.0f, 10.0f, timeline);
+	timeSpeedSlider = new TimeSpeedSlider(50.0f, camera->getScreenHeight() - 40.0f, 200.0f, 10.0f);
+	selectedInfoPanel = new SelectedInfoPanel(camera->getScreenWidth() / 2.0f, 0.0f, camera->getScreenWidth() / 2.0f, 100.0f);
 
-	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, 100.0f, camera->getScreenWidth()));
+	uiElements.push_back(new Panel(0.0f, camera->getScreenHeight() - 100.0f, camera->getScreenWidth(), 100.0f));
 	uiElements.push_back(timelineSlider);
 	uiElements.push_back(timeSpeedSlider);
+	uiElements.push_back(selectedInfoPanel);
 }
 
 void Presenter::update() {
@@ -42,12 +45,19 @@ void Presenter::processClicks() {
 		}
 
 		if (!uiHit) {
+			bool creatureHit = false;
 			for (CreatureState& creature : worldState->creatures) {
 				glm::vec2 mouseWorldPos = camera->screenToWorld(mouseX, mouseY);
 				if (creature.xpos < mouseWorldPos.x && creature.xpos + 1 > mouseWorldPos.x
 						&& creature.ypos < mouseWorldPos.y && creature.ypos + 1 > mouseWorldPos.y) {
-					std::cout << "clicked creature" << std::endl;
+					selectedInfoPanel->setSelected(&creature);
+					creatureHit = true;
+					break;
 				}
+			}
+
+			if (!creatureHit) {
+				selectedInfoPanel->setSelected(nullptr);
 			}
 		}
 	}

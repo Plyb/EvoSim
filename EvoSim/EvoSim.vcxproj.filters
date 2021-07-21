@@ -56,6 +56,12 @@
     <Filter Include="Simulator\Source">
       <UniqueIdentifier>{0a188a4b-abc9-4e39-b3c6-4b87835f8234}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Headers\Presenter\UiElements">
+      <UniqueIdentifier>{a1010249-8390-4267-a362-fd63c4353208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Source\Presenter\UiElements">
+      <UniqueIdentifier>{c1829b12-f91a-45bc-8069-2d3d390a2cd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer\Source\glad.c">
@@ -113,29 +119,32 @@
     <ClCompile Include="Renderer\Source\TextRenderer.cpp">
       <Filter>Renderer\Source\View</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Source\Panel.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Source\UiElement.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Source\Slider.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Headers\RectangularUiElement.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Source\Time.cpp">
       <Filter>Renderer\Source\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Source\TimelineSlider.cpp">
+    <ClCompile Include="Renderer\Source\TextItem.cpp">
       <Filter>Renderer\Source\Presenter</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Source\TimeSpeedSlider.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Source\TextItem.cpp">
-      <Filter>Renderer\Source\Presenter</Filter>
+    <ClCompile Include="Renderer\Source\Panel.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\UiElement.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\TimelineSlider.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Headers\RectangularUiElement.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\SelectedInfoPanel.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Source\Slider.cpp">
+      <Filter>Renderer\Source\Presenter\UiElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,26 +205,29 @@
     <ClInclude Include="Renderer\Headers\TextItem.h">
       <Filter>Renderer\Headers\Presenter</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Headers\Panel.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Headers\UiElement.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Headers\Slider.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Headers\RectangularUiElement.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\Headers\Time.h">
       <Filter>Renderer\Headers\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Headers\TimelineSlider.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
+    <ClInclude Include="Renderer\Headers\Panel.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\RectangularUiElement.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\UiElement.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Headers\TimeSpeedSlider.h">
-      <Filter>Renderer\Headers\Presenter</Filter>
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\TimelineSlider.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\SelectedInfoPanel.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Headers\Slider.h">
+      <Filter>Renderer\Headers\Presenter\UiElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
