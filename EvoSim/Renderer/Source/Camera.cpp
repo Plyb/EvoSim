@@ -30,7 +30,7 @@ glm::mat4 Camera::getViewProjectionTransform() {
 }
 
 glm::vec2 Camera::screenToWorld(double screenX, double screenY) const {
-	return glm::vec2(screenX + position.x - screenWidth / 2.0f, screenHeight / 2.0f - screenY + position.y) / pixelsPerUnit;
+	return glm::vec2((screenX - screenWidth / 2.0f) / scale + position.x, (screenHeight / 2.0f - screenY) / scale + position.y) / pixelsPerUnit;
 }
 
 void Camera::translate(glm::vec2 direction, bool fast) {
