@@ -66,7 +66,7 @@ void Renderer::loadResources() {
     backgroundRenderer = new BackgroundRenderer(backgroundShader);
 
     textRenderer = new TextRenderer(SCREEN_WIDTH, SCREEN_HEIGHT);
-    textRenderer->Load("Renderer/Resources/OCRAEXT.TTF", 24); 
+    textRenderer->load("Renderer/Resources/OCRAEXT.TTF", 24); 
 }
 
 int Renderer::run() {
@@ -133,7 +133,7 @@ void Renderer::renderText() {
 
     for (unsigned int i = 0; textItems[i] != nullptr; ++i) {
         TextItem* textItem = textItems[i];
-        textRenderer->RenderText(textItem->text, textItem->x, textItem->y, textItem->scale);
+        textRenderer->renderText(textItem->text, textItem->x, textItem->y, textItem->scale, textItem->color, textItem->centered);
         delete textItem;
     }
 }

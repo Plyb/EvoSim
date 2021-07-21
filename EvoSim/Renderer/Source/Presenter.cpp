@@ -75,14 +75,22 @@ TextItem** Presenter::getTextItems(TextItem** textItems, unsigned int maxTextIte
 	std::stringstream numCreaturesTextStream;
 	numCreaturesTextStream << "Creatures: " << worldState->creatures.size();
 
-	TextItem* numCreatures = new TextItem();
-	numCreatures->x = 5.0f;
-	numCreatures->y = 5.0f;
-	numCreatures->scale = 1.0f;
-	numCreatures->text = numCreaturesTextStream.str();
-
+	TextItem* numCreatures = new TextItem(numCreaturesTextStream.str(), 5.0f, 5.0f, 1.0f);
 	textItems[0] = numCreatures;
-	textItems[1] = nullptr;
+	
+	unsigned int textItemsInserted = 1;
+	for (UiElement* element : uiElements) {
+		if (element->getNumTextItems() + textItemsInserted < maxTextItems) {
+			element->insertTextItems(textItems + textItemsInserted);
+			textItemsInserted += element->getNumTextItems();
+		}
+		else {
+			break;
+		}
+	}
+
+	textItems[textItemsInserted] = nullptr;
+
 	return textItems;
 }
 

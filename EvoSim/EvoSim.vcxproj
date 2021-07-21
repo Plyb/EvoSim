@@ -157,6 +157,7 @@
     <ClCompile Include="Renderer\Source\Sprite.cpp" />
     <ClCompile Include="Renderer\Source\SpriteRenderer.cpp" />
     <ClCompile Include="Renderer\Source\stb_image.cpp" />
+    <ClCompile Include="Renderer\Source\TextItem.cpp" />
     <ClCompile Include="Renderer\Source\TextRenderer.cpp" />
     <ClCompile Include="Renderer\Source\Texture.cpp" />
     <ClCompile Include="Renderer\Source\Time.cpp" />

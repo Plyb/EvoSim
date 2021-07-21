@@ -2,13 +2,18 @@
 #define UI_ELEMENT_H
 
 #include "Sprite.h"
+#include "TextItem.h"
 
 class UiElement {
 public:
 	// Returns true if should block click
 	virtual bool onClick() = 0;
+
 	virtual void insertSprites(Sprite** spriteArray) = 0;
 	virtual unsigned int getNumSprites() const = 0;
+
+	virtual void insertTextItems(TextItem** textItemArray);
+	virtual int getNumTextItems() const;
 protected:
 	virtual bool clickHits() const = 0;
 };

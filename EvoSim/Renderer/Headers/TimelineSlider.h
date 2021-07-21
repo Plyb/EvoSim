@@ -7,6 +7,9 @@
 class TimelineSlider : public Slider {
 public:
 	TimelineSlider(float x, float y, float w, float h, Timeline* timeline);
+
+	void insertTextItems(TextItem** textItemArray) override;
+	int getNumTextItems() const override;
 private:
 	void onSliderUpdated() override;
 

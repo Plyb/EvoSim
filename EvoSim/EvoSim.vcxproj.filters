@@ -134,6 +134,9 @@
     <ClCompile Include="Renderer\Source\TimeSpeedSlider.cpp">
       <Filter>Renderer\Source\Presenter</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Source\TextItem.cpp">
+      <Filter>Renderer\Source\Presenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer\Headers\Renderer.h">

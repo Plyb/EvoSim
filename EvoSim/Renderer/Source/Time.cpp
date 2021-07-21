@@ -28,6 +28,10 @@ int Time::getFrames() {
 	return (int)((glfwGetTime() - anchor) * FPS * speed) + offset;
 }
 
+int Time::getFps() {
+	return FPS;
+}
+
 void Time::timeTravelTo(unsigned int frame) {
 	anchor = glfwGetTime();
 	offset = frame;

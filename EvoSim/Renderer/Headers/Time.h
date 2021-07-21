@@ -5,6 +5,7 @@ public:
 	static float getDeltaTime();
 	static void updateDeltaTime();
 	static int getFrames();
+	static int getFps();
 
 	static void timeTravelTo(unsigned int frame);
 	static void setSpeed(double speed);

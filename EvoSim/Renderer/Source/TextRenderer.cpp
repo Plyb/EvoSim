@@ -34,7 +34,7 @@ TextRenderer::TextRenderer(unsigned int width, unsigned int height)
     glBindVertexArray(0);
 }
 
-void TextRenderer::Load(std::string font, unsigned int fontSize)
+void TextRenderer::load(std::string font, unsigned int fontSize)
 {
     // first clear the previously loaded Characters
     this->Characters.clear();
@@ -95,21 +95,28 @@ void TextRenderer::Load(std::string font, unsigned int fontSize)
     FT_Done_FreeType(ft);
 }
 
-void TextRenderer::RenderText(std::string text, float x, float y, float scale, glm::vec3 color)
-{
+void TextRenderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color, bool center) {
     // activate corresponding render state	
     this->TextShader.use();
     this->TextShader.set("textColor", color);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(this->VAO);
 
+    float centerOffset = 0.0f;
+    if (center) {
+        std::string::const_iterator c;
+        for (c = text.begin(); c != text.end(); c++) {
+            Character ch = Characters[*c];
+            centerOffset += (ch.Advance >> 6) * scale / 2; // bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
+        }
+    }
+
     // iterate through all characters
     std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++)
-    {
+    for (c = text.begin(); c != text.end(); c++) {
         Character ch = Characters[*c];
 
-        float xpos = x + ch.Bearing.x * scale;
+        float xpos = x + ch.Bearing.x * scale - centerOffset;
         float ypos = y + (this->Characters['H'].Bearing.y - ch.Bearing.y) * scale;
 
         float w = ch.Size.x * scale;
