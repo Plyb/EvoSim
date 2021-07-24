@@ -50,7 +50,9 @@ void Presenter::processClicks() {
 				glm::vec2 mouseWorldPos = camera->screenToWorld(mouseX, mouseY);
 				if (creature.xpos < mouseWorldPos.x && creature.xpos + 1 > mouseWorldPos.x
 						&& creature.ypos < mouseWorldPos.y && creature.ypos + 1 > mouseWorldPos.y) {
-					selectedInfoPanel->setSelected(&creature);
+					if (Input::getMouseUp() > -1) { // TODO: move to dedicated creature presenter onClick method
+						selectedInfoPanel->setSelected(&creature);
+					}
 					creatureHit = true;
 					break;
 				}
