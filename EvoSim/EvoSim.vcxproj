@@ -165,6 +165,7 @@
     <ClCompile Include="Renderer\Source\TimelineSlider.cpp" />
     <ClCompile Include="Renderer\Source\TimeSpeedSlider.cpp" />
     <ClCompile Include="Renderer\Source\UiElement.cpp" />
+    <ClCompile Include="Shared\Source\MethodCallback.cpp" />
     <ClCompile Include="Shared\Source\Timeline.cpp" />
     <ClCompile Include="Shared\Source\WorldState.cpp" />
     <ClCompile Include="Simulator\Cell.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Renderer\Headers\TimelineSlider.h" />
     <ClInclude Include="Renderer\Headers\TimeSpeedSlider.h" />
     <ClInclude Include="Renderer\Headers\UiElement.h" />
+    <ClInclude Include="Shared\Headers\MethodCallback.h" />
     <ClInclude Include="Shared\Headers\Timeline.h" />
     <ClInclude Include="Shared\Headers\WorldState.h" />
     <ClInclude Include="Simulator\Cell.h" />

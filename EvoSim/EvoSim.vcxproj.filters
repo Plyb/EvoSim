@@ -146,6 +146,9 @@
     <ClCompile Include="Renderer\Source\Slider.cpp">
       <Filter>Renderer\Source\Presenter\UiElements</Filter>
     </ClCompile>
+    <ClCompile Include="Shared\Source\MethodCallback.cpp">
+      <Filter>Shared\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer\Headers\Renderer.h">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="Renderer\Headers\Slider.h">
       <Filter>Renderer\Headers\Presenter\UiElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Headers\MethodCallback.h">
+      <Filter>Shared\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

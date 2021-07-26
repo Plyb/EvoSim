@@ -6,6 +6,7 @@
 #include "../Headers/TimeSpeedSlider.h"
 #include "../Headers/SelectedInfoPanel.h"
 #include "../Headers/Input.h"
+#include "../../Shared/Headers/MethodCallback.h"
 #include <sstream>
 #include <iostream>
 
@@ -28,7 +29,10 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 void Presenter::update() {
 	processClicks();
 	camera->update();
-	timeline->tryGetStateAtFrame(Time::getFrames(), worldState);
+	
+	MethodCallback<Presenter, bool> timelineGetCallback = MethodCallback<Presenter, bool>(this, Presenter::batchGetTimelineDataUnguarded);
+	timeline->tryCallbackGuarded(timelineGetCallback);
+
 	timelineSlider->setValue(Time::getFrames() / (float) timeline->getNumFramesAvailable());
 }
 
@@ -131,4 +135,8 @@ BackgroundCell** Presenter::getBackground() {
 
 bool Presenter::isReady() {
 	return worldState != NULL;
+}
+
+bool Presenter::batchGetTimelineDataUnguarded(Presenter* self) {
+	return self->timeline->getStateAtFrameUnguarded(Time::getFrames(), self->worldState);
 }

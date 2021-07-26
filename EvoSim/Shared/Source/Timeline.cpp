@@ -12,13 +12,25 @@ bool Timeline::tryGetStateAtFrame(int frame, WorldState*& worldState) {
 	if (!lock.try_lock()) {
 		return false;
 	}
+	bool success = getStateAtFrameUnguarded(frame, worldState);
+	lock.unlock();
+	return success;
+}
+
+bool Timeline::getStateAtFrameUnguarded(int frame, WorldState*& worldState) {
 	if (frame >= epochs.size() * Epoch::MAX_SIZE) {
-		lock.unlock();
 		return false;
 	}
 	worldState = epochs.at(frame / Epoch::MAX_SIZE)->getAt(frame % Epoch::MAX_SIZE);
+}
+
+bool Timeline::tryCallbackGuarded(MethodCallback<void, bool> callback) {
+	if (!lock.try_lock()) {
+		return false;
+	}
+	bool success = callback();
 	lock.unlock();
-	return true;
+	return success;
 }
 
 void Timeline::push(WorldState* worldState) {
