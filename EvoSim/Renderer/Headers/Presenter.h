@@ -15,7 +15,6 @@ public:
 	// TODO create a destructor
 
 	void update();
-	void processClicks();
 
 	// become a null terminated array of pointers
 	Sprite** getSprites(Sprite** sprites, unsigned int maxSprites);
@@ -37,6 +36,8 @@ private:
 	Slider* timelineSlider;
 	Slider* timeSpeedSlider;
 	SelectedInfoPanel* selectedInfoPanel;
+
+	void processClicks();
 
 	bool batchGetTimelineData();
 };

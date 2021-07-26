@@ -135,6 +135,11 @@ bool Presenter::isReady() {
 }
 
 bool Presenter::batchGetTimelineData() {
-	Timeline::Batch batch = Timeline::Batch(timeline);
-	return batch.getStateAtFrame(Time::getFrames(), worldState);
+	try {
+		Timeline::Batch batch = Timeline::Batch(timeline);
+		return batch.getStateAtFrame(Time::getFrames(), worldState);
+	}
+	catch (Timeline::Batch::AlreadyLockedException& ex) {
+		return false;
+	}
 }
