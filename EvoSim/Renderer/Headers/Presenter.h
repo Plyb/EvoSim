@@ -38,9 +38,7 @@ private:
 	Slider* timeSpeedSlider;
 	SelectedInfoPanel* selectedInfoPanel;
 
-	// This method accesses mutex guarded data unsafely. Intended to only be used within a MethodCallback in
-	// timeline.tryCallbackGuarded
-	static bool batchGetTimelineDataUnguarded(Presenter* self);
+	bool batchGetTimelineData();
 };
 
 #endif // !PRESENTER_H

@@ -8,31 +8,6 @@ Timeline::Timeline() {
 	pushEpoch = new Epoch();
 }
 
-bool Timeline::tryGetStateAtFrame(int frame, WorldState*& worldState) {
-	if (!lock.try_lock()) {
-		return false;
-	}
-	bool success = getStateAtFrameUnguarded(frame, worldState);
-	lock.unlock();
-	return success;
-}
-
-bool Timeline::getStateAtFrameUnguarded(int frame, WorldState*& worldState) {
-	if (frame >= epochs.size() * Epoch::MAX_SIZE) {
-		return false;
-	}
-	worldState = epochs.at(frame / Epoch::MAX_SIZE)->getAt(frame % Epoch::MAX_SIZE);
-}
-
-bool Timeline::tryCallbackGuarded(MethodCallback<void, bool> callback) {
-	if (!lock.try_lock()) {
-		return false;
-	}
-	bool success = callback();
-	lock.unlock();
-	return success;
-}
-
 void Timeline::push(WorldState* worldState) {
 	pushEpoch->push(worldState);
 	if (pushEpoch->getSize() == Epoch::MAX_SIZE) {
@@ -49,6 +24,23 @@ void Timeline::push(WorldState* worldState) {
 
 bool Timeline::getIsFull() {
 	return isFull;
+}
+
+Timeline::Batch::Batch(Timeline* timeline) : timeline(timeline) {
+	if (!timeline->lock.try_lock()) {
+		throw AlreadyLockedException();
+	}
+}
+
+Timeline::Batch::~Batch() {
+	timeline->lock.unlock();
+}
+
+bool Timeline::Batch::getStateAtFrame(int frame, WorldState*& worldState) {
+	if (frame >= timeline->epochs.size() * Epoch::MAX_SIZE) {
+		return false;
+	}
+	worldState = timeline->epochs.at(frame / Epoch::MAX_SIZE)->getAt(frame % Epoch::MAX_SIZE);
 }
 
 unsigned int Timeline::getNumFramesAvailable() const {

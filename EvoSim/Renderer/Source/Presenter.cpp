@@ -29,10 +29,7 @@ Presenter::Presenter(Camera* camera, Timeline* timeline) : camera(camera), timel
 void Presenter::update() {
 	processClicks();
 	camera->update();
-	
-	MethodCallback<Presenter, bool> timelineGetCallback = MethodCallback<Presenter, bool>(this, Presenter::batchGetTimelineDataUnguarded);
-	timeline->tryCallbackGuarded(timelineGetCallback);
-
+	batchGetTimelineData();
 	timelineSlider->setValue(Time::getFrames() / (float) timeline->getNumFramesAvailable());
 }
 
@@ -137,6 +134,7 @@ bool Presenter::isReady() {
 	return worldState != NULL;
 }
 
-bool Presenter::batchGetTimelineDataUnguarded(Presenter* self) {
-	return self->timeline->getStateAtFrameUnguarded(Time::getFrames(), self->worldState);
+bool Presenter::batchGetTimelineData() {
+	Timeline::Batch batch = Timeline::Batch(timeline);
+	return batch.getStateAtFrame(Time::getFrames(), worldState);
 }
