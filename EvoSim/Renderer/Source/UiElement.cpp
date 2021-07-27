@@ -7,3 +7,5 @@ void UiElement::insertTextItems(TextItem** textItemArray) {
 int UiElement::getNumTextItems() const {
 	return 0;
 }
+
+void UiElement::update(WorldState* worldState) {};

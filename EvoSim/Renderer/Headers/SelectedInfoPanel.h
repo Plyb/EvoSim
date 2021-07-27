@@ -8,7 +8,7 @@ class SelectedInfoPanel : public RectangularUiElement {
 public:
 	SelectedInfoPanel(float x, float y, float w, float h);
 
-	void setSelected(CreatureState* creature);
+	void setSelected(long long id);
 
 	void insertSprites(Sprite** spriteArray) override;
 	unsigned int getNumSprites() const override;
@@ -17,7 +17,10 @@ public:
 	int getNumTextItems() const override;
 
 	bool onClick() override;
+
+	void update(WorldState* worldState) override;
 private:
+	long long selectedCreatureId = -1;
 	CreatureState* selectedCreature = nullptr;
 };
 

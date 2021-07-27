@@ -30,6 +30,9 @@ void Presenter::update() {
 	processClicks();
 	camera->update();
 	batchGetTimelineData();
+	for (UiElement* uiElement : uiElements) {
+		uiElement->update(worldState);
+	}
 	timelineSlider->setValue(Time::getFrames() / (float) timeline->getNumFramesAvailable());
 }
 
@@ -53,7 +56,7 @@ void Presenter::processClicks() {
 				if (creature.xpos < mouseWorldPos.x && creature.xpos + 1 > mouseWorldPos.x
 						&& creature.ypos < mouseWorldPos.y && creature.ypos + 1 > mouseWorldPos.y) {
 					if (Input::getMouseUp() > -1) { // TODO: move to dedicated creature presenter onClick method
-						selectedInfoPanel->setSelected(&creature);
+						selectedInfoPanel->setSelected(creature.id);
 					}
 					creatureHit = true;
 					break;
@@ -61,7 +64,7 @@ void Presenter::processClicks() {
 			}
 
 			if (!creatureHit) {
-				selectedInfoPanel->setSelected(nullptr);
+				selectedInfoPanel->setSelected(-1);
 			}
 		}
 	}

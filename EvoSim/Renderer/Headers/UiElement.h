@@ -3,6 +3,7 @@
 
 #include "Sprite.h"
 #include "TextItem.h"
+#include "../../Shared/Headers/WorldState.h"
 
 class UiElement {
 public:
@@ -14,6 +15,8 @@ public:
 
 	virtual void insertTextItems(TextItem** textItemArray);
 	virtual int getNumTextItems() const;
+	
+	virtual void update(WorldState* worldState);
 protected:
 	virtual bool clickHits() const = 0;
 };
