@@ -47,7 +47,8 @@ void Presenter::processClicks() {
 
 		if (!uiHit) {
 			bool creatureHit = false;
-			for (CreatureState& creature : worldState->creatures) {
+			for (std::pair<long long, CreatureState> entry : worldState->creatures) {
+				CreatureState& creature = entry.second;
 				glm::vec2 mouseWorldPos = camera->screenToWorld(mouseX, mouseY);
 				if (creature.xpos < mouseWorldPos.x && creature.xpos + 1 > mouseWorldPos.x
 						&& creature.ypos < mouseWorldPos.y && creature.ypos + 1 > mouseWorldPos.y) {

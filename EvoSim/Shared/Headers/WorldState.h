@@ -2,8 +2,10 @@
 #define WORLD_STATE_H
 
 #include <vector>
+#include <map>
 
 struct CreatureState {
+	long long id;
 	float xpos;
 	float ypos;
 	float rot;
@@ -21,6 +23,8 @@ struct CreatureState {
 	std::vector<std::vector<std::vector<double>>> weights;
 
 	float eaten;
+
+	static long long LAST_ID;
 };
 
 struct CellState {
@@ -29,10 +33,10 @@ struct CellState {
 
 struct WorldState {
 	WorldState();
-	WorldState(std::vector<CreatureState> creatures);
+	WorldState(std::map<long long, CreatureState> creatures);
 	WorldState(WorldState* other);
 
-	std::vector<CreatureState> creatures;
+	std::map<long long, CreatureState> creatures;
 	static const int WORLD_WIDTH = 100;
 	CellState ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH];
 };

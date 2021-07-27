@@ -6,7 +6,7 @@
 Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 	//set up initial state
 	CreatureState* creatureState = new CreatureState {
-		0.0f, 0.0f, 0.0f
+		++CreatureState::LAST_ID, 0.0f, 0.0f, 0.0f
 	};
 	Creature* creature = new Creature(creatureState);
 	creatures.push_back(creature);
@@ -80,9 +80,9 @@ void Simulator::addCreatures() {
 WorldState* Simulator::createState() const {
 	WorldState* state = new WorldState();
 
-	std::vector<CreatureState>* creatureStates = new std::vector<CreatureState>();
+	std::map<long long, CreatureState>* creatureStates = new std::map<long long, CreatureState>();
 	for (Creature* creature : creatures) {
-		creatureStates->push_back(*creature->getState());
+		creatureStates->insert(std::pair<long long, CreatureState>(creature->getState()->id, *creature->getState()));
 	}
 	state->creatures = *creatureStates;
 
