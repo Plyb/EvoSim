@@ -1,6 +1,7 @@
 #include "../Headers/SelectedInfoPanel.h"
 
 #include <stdexcept>
+#include <sstream>
 
 SelectedInfoPanel::SelectedInfoPanel(float x, float y, float w, float h) : RectangularUiElement(x, y, w, h) {}
 
@@ -15,11 +16,22 @@ unsigned int SelectedInfoPanel::getNumSprites() const {
 }
 
 void SelectedInfoPanel::insertTextItems(TextItem** textItemArray) {
+	if (selectedCreature != nullptr) {
+		std::stringstream energyStream;
+		energyStream << "Energy: " << std::to_string((int)selectedCreature->energy);
 
+		textItemArray[0] = new TextItem(
+			energyStream.str(),
+			basePanelSprite->position.x + 10.0f,
+			basePanelSprite->position.y + 10.0f,
+			1.0f,
+			glm::vec3(0.0f, 0.0f, 0.0f)
+		);
+	}
 }
 
 int SelectedInfoPanel::getNumTextItems() const {
-	return 0;
+	return selectedCreature != nullptr;
 }
 
 bool SelectedInfoPanel::onClick() {
@@ -39,7 +51,7 @@ void SelectedInfoPanel::update(WorldState* worldState) {
 			selectedCreature = &worldState->creatures.at(selectedCreatureId);
 		}
 		catch (const std::out_of_range& oor) {
-			selectedCreature = nullptr;
+			// Keep the current selection
 		}
 	}
 }
