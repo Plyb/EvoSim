@@ -29,47 +29,49 @@ double Creature::sigmoid(double value) {
 	return 1.0 / (1.0 + exp(-value));
 }
 
-Creature::Creature(CreatureState* state) : state(state) {
-	const int INPUT_COUNT = 6;
-	const int OUTPUT_COUNT = 7;
-	const int HIDDEN_LAYER_COUNT = 12;
-	const int NODES_PER_LAYER = 12;
+Creature::Creature(CreatureState* state, bool initializeWeights) : state(state) {
+	if (initializeWeights) {
+		const int INPUT_COUNT = 6;
+		const int OUTPUT_COUNT = 7;
+		const int HIDDEN_LAYER_COUNT = 1;
+		const int NODES_PER_LAYER = 12;
 
-	const double min_weight = -1.0; // Should probably increase this.
-	const double max_weight = 1.0;
+		const double min_weight = -1.0; // Should probably increase this.
+		const double max_weight = 1.0;
 
-	std::uniform_real_distribution<double> unif(min_weight, max_weight);
-	std::default_random_engine re;
+		std::uniform_real_distribution<double> unif(min_weight, max_weight);
+		std::default_random_engine re(state->id);
 
-	std::vector<std::vector<std::vector<double>>> weights;
-	weights = std::vector<std::vector<std::vector<double>>>(HIDDEN_LAYER_COUNT + 1);
+		std::vector<std::vector<std::vector<double>>> weights;
+		weights = std::vector<std::vector<std::vector<double>>>(HIDDEN_LAYER_COUNT + 1);
 
-	weights.at(0) = std::vector<std::vector<double>>(NODES_PER_LAYER);
-	for (int i = 0; i < NODES_PER_LAYER; i++) {
-		weights.at(0).at(i) = std::vector<double>(INPUT_COUNT + 1);
-		for (int j = 0; j < INPUT_COUNT + 1; j++) {
-			weights.at(0).at(i).at(j) = unif(re);
-		}
-	}
-
-	for (int i = 1; i < HIDDEN_LAYER_COUNT; i++) {
-		weights.at(i) = std::vector<std::vector<double>>(NODES_PER_LAYER);
-		for (int j = 0; j < NODES_PER_LAYER; j++) {
-			weights.at(i).at(j) = std::vector<double>(NODES_PER_LAYER + 1);
-			for (int k = 0; k < NODES_PER_LAYER + 1; k++) {
-				weights.at(i).at(j).at(k) = unif(re);
+		weights.at(0) = std::vector<std::vector<double>>(NODES_PER_LAYER);
+		for (int i = 0; i < NODES_PER_LAYER; i++) {
+			weights.at(0).at(i) = std::vector<double>(INPUT_COUNT + 1);
+			for (int j = 0; j < INPUT_COUNT + 1; j++) {
+				weights.at(0).at(i).at(j) = unif(re);
 			}
 		}
-	}
-	weights.at(HIDDEN_LAYER_COUNT) = std::vector<std::vector<double>>(OUTPUT_COUNT);
-	for (int i = 0; i < OUTPUT_COUNT; i++) {
-		weights.at(HIDDEN_LAYER_COUNT).at(i) = std::vector<double>(NODES_PER_LAYER + 1);
-		for (int j = 0; j < NODES_PER_LAYER + 1; j++) {
-			weights.at(HIDDEN_LAYER_COUNT).at(i).at(j) = unif(re);
-		}
-	}
 
-	state->weights = weights;
+		for (int i = 1; i < HIDDEN_LAYER_COUNT; i++) {
+			weights.at(i) = std::vector<std::vector<double>>(NODES_PER_LAYER);
+			for (int j = 0; j < NODES_PER_LAYER; j++) {
+				weights.at(i).at(j) = std::vector<double>(NODES_PER_LAYER + 1);
+				for (int k = 0; k < NODES_PER_LAYER + 1; k++) {
+					weights.at(i).at(j).at(k) = unif(re);
+				}
+			}
+		}
+		weights.at(HIDDEN_LAYER_COUNT) = std::vector<std::vector<double>>(OUTPUT_COUNT);
+		for (int i = 0; i < OUTPUT_COUNT; i++) {
+			weights.at(HIDDEN_LAYER_COUNT).at(i) = std::vector<double>(NODES_PER_LAYER + 1);
+			for (int j = 0; j < NODES_PER_LAYER + 1; j++) {
+				weights.at(HIDDEN_LAYER_COUNT).at(i).at(j) = unif(re);
+			}
+		}
+
+		state->weights = weights;
+	}
 };
 
 void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) {
@@ -87,7 +89,10 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 	state->energy += state->eaten - BASE_ENERGY_CONSUMPTION;*/
 
 	Cell* currentCell = getCurrentCell(ground);
-	if (currentCell == NULL) return;
+	if (currentCell == NULL) {
+		state->energy = 0;
+		return;
+	}
 
 	std::vector<double> inputs;
 	inputs.push_back(state->energy);
@@ -118,12 +123,14 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 	else
 		state->reproduce_count = 0;
 
-	state->xpos += outputs.at(4) * 2.0 - 1.0 + 0.2; // adding 0.2 just for testing
-	state->ypos += outputs.at(5) * 2.0 - 1.0;
-	state->energy -= sqrt(pow(outputs.at(4) * 2.0 - 1.0, 2) + pow(outputs.at(5) * 2.0 - 1.0, 2)) / 100.0;
+	float speed = (outputs.at(4) * 2.0 - 1.0) * 40.0f;
+	float rotChange = outputs.at(5) * 2.0 - 1.0;
+	state->rot += rotChange;
+	state->xpos += cos(state->rot * M_PI / 180) / 100.0f * speed;
+	state->ypos += sin(state->rot * M_PI / 180) / 100.0f * speed;
 
 	state->eaten = (currentCell->getState()->food / (currentCell->getVisitingCreatures().size() ? currentCell->getVisitingCreatures().size() : 1)) * outputs.at(6);
-	state->energy += state->eaten;
+	state->energy += state->eaten - BASE_ENERGY_CONSUMPTION;
 }
 
 Cell* Creature::getCurrentCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const {
@@ -163,10 +170,12 @@ Creature* Creature::reproduce() const {
 	childState->xpos = state->xpos;
 	childState->ypos = state->ypos;
 	childState->rot = rand();
+	childState->id = ++CreatureState::LAST_ID;
+	childState->weights = state->weights;
+	
+	childState->energy = state->energy / 2.0f;
 
-	childState->energy = state->reproductionEnergy / 2.0f;
-
-	state->energy -= state->reproductionEnergy / 2.0f;
+	state->energy -= state->energy / 2.0f;
 
 	return new Creature(childState);
 }
@@ -178,8 +187,7 @@ bool Creature::isDying() const
 
 bool Creature::isReproducing(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const
 {
-	if (state->reproduce_count == 0) return false;
-	return false;
+	if (state->reproduce_count == 0 || getCurrentCell(ground) == nullptr) return false;
 	int count = 0;
 	for (CreatureState* cs : getCurrentCell(ground)->getVisitingCreatures())
 		if (cs->reproduce_count == state->reproduce_count)

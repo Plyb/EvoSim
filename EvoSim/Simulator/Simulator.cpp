@@ -1,6 +1,7 @@
 #include "Simulator.h"
 
 #include <iostream>
+#include <math.h>
 
 
 Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
@@ -8,7 +9,7 @@ Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 	CreatureState* creatureState = new CreatureState {
 		++CreatureState::LAST_ID, 0.0f, 0.0f, 0.0f
 	};
-	Creature* creature = new Creature(creatureState);
+	Creature* creature = new Creature(creatureState, true);
 	creatures.push_back(creature);
 };
 
@@ -57,7 +58,7 @@ void Simulator::updateCreatureList() {
 
 void Simulator::removeCreatures() {
 	for (int i = creatures.size() - 1; i >= 0; i--) {
-		if (creatures.at(i)->getState()->energy < 0) {
+		if (creatures.at(i)->isDying()) {
 			delete creatures.at(i);
 			creatures.erase(creatures.begin() + i);
 		}
@@ -74,6 +75,16 @@ void Simulator::addCreatures() {
 
 	for (Creature* creature : creaturesToAdd) {
 		creatures.push_back(creature);
+	}
+
+	if (creatures.size() == 0) {
+		for (unsigned int i = 0; i < 5; i++) {
+			CreatureState* creatureState = new CreatureState{
+				++CreatureState::LAST_ID, (float)(rand() % 100), (float)(rand() % 100), (float)rand()
+			};
+			Creature* creature = new Creature(creatureState, true);
+			creatures.push_back(creature);
+		}
 	}
 }
 

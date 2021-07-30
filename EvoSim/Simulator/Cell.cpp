@@ -16,10 +16,21 @@ const CellState* Cell::getState() const {
 void Cell::update() {
 	unsigned char& food = state.food;
 	
-	food += FOOD_BOOST * (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) < FOOD_BOOST_CHANCE);
+	unsigned char foodIncrease = FOOD_BOOST * (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) < FOOD_BOOST_CHANCE);
+	if (food == 255 && foodIncrease) {
+		food = 255;
+	}
+	if ((unsigned char)(food + foodIncrease) > food) {
+		food += foodIncrease;
+	}
 
 	for (CreatureState* creature : visitingCreatures) {
-		food -= creature->eaten;
+		if (food - creature->eaten <= creature->eaten) {
+			food -= creature->eaten;
+		}
+		else {
+			food = 0;
+		}
 	}
 }
 

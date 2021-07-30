@@ -25,12 +25,12 @@ public:
 		Timeline* timeline;
 	} friend;
 private:
-	static const int MAX_EPOCHS = 10;
+	static const int MAX_EPOCHS = 160;
 	bool isFull = false;
 
 	class Epoch {
 	public:
-		static const int MAX_SIZE = 1024;
+		static const int MAX_SIZE = 128;
 
 		void push(WorldState* worldstate);
 		int getSize();

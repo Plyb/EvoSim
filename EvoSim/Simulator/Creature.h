@@ -8,7 +8,7 @@
 
 class Creature {
 public:
-	Creature(CreatureState* state);
+	Creature(CreatureState* state, bool initializeWeights = false);
 
 	void update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
 	void remapCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]);
