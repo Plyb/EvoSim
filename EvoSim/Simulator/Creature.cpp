@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-const float Creature::BASE_ENERGY_CONSUMPTION = 0.25f;
+const float Creature::BASE_ENERGY_CONSUMPTION = 0.001f;
 const float Creature::BASE_ABSORPTION_RATE = 0.05f;
 
 
@@ -31,7 +31,7 @@ double Creature::sigmoid(double value) {
 
 Creature::Creature(CreatureState* state, bool initializeWeights) : state(state) {
 	if (initializeWeights) {
-		const int INPUT_COUNT = 6;
+		const int INPUT_COUNT = 7;
 		const int OUTPUT_COUNT = 7;
 		const int HIDDEN_LAYER_COUNT = 1;
 		const int NODES_PER_LAYER = 12;
@@ -88,6 +88,7 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 	}
 	state->energy += state->eaten - BASE_ENERGY_CONSUMPTION;*/
 
+
 	Cell* currentCell = getCurrentCell(ground);
 	if (currentCell == NULL) {
 		state->energy = 0;
@@ -95,12 +96,13 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 	}
 
 	std::vector<double> inputs;
-	inputs.push_back(state->energy);
+	inputs.push_back(state->energy / 100.0);
 	inputs.push_back(sigmoid(currentCell->getVisitingCreatures().size()) * 2.0 - 1.0);
 	inputs.push_back(currentCell->getState()->food / 100.0); // 100.0 should be max food.
 	inputs.push_back(currentCell->get_color_r());
 	inputs.push_back(currentCell->get_color_g());
 	inputs.push_back(currentCell->get_color_b());
+	inputs.push_back(state->age);
 	
 	std::vector<double> outputs;
 	outputs = runNN(inputs);
@@ -131,6 +133,7 @@ void Creature::update(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WID
 
 	state->eaten = (currentCell->getState()->food / (currentCell->getVisitingCreatures().size() ? currentCell->getVisitingCreatures().size() : 1)) * outputs.at(6);
 	state->energy += state->eaten - BASE_ENERGY_CONSUMPTION;
+	state->age++;
 }
 
 Cell* Creature::getCurrentCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const {
@@ -141,7 +144,7 @@ Cell* Creature::getCurrentCell(Cell ground[WorldState::WORLD_WIDTH][WorldState::
 		return NULL;
 	}
 
-	return &ground[xcoord][ycoord];
+	return &(ground[xcoord][ycoord]);
 }
 
 const CellState* Creature::getCurrentCellState(Cell ground[WorldState::WORLD_WIDTH][WorldState::WORLD_WIDTH]) const {

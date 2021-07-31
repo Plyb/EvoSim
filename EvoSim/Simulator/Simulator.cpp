@@ -7,16 +7,28 @@
 Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 	//set up initial state
 	CreatureState* creatureState = new CreatureState {
-		++CreatureState::LAST_ID, 0.0f, 0.0f, 0.0f
+		++CreatureState::LAST_ID, 50.0f, 50.0f, 0.0f
 	};
 	Creature* creature = new Creature(creatureState, true);
+
+	std::vector<std::vector<std::vector<double>>> vect{ {
+		{0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0},
+	} };
+	creature->getState()->weights = vect;
+
 	creatures.push_back(creature);
 };
 
 void Simulator::run() {
 	while (!timeline->getIsFull()) {
-		updateCreatures();
 		remap();
+		updateCreatures();
 		updateGround();
 		updateCreatureList();
 		timeline->push(createState());
@@ -78,7 +90,7 @@ void Simulator::addCreatures() {
 	}
 
 	if (creatures.size() == 0) {
-		for (unsigned int i = 0; i < 5; i++) {
+		for (unsigned int i = 0; i < 15; i++) {
 			CreatureState* creatureState = new CreatureState{
 				++CreatureState::LAST_ID, (float)(rand() % 100), (float)(rand() % 100), (float)rand()
 			};

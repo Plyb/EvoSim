@@ -10,6 +10,7 @@ struct CreatureState {
 	float ypos;
 	float rot;
 	float energy;
+	unsigned int age = 0;
 
 	float reproductionEnergy = 100;
 	int reproduce_count;
