@@ -9,7 +9,8 @@ Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 	CreatureState* creatureState = new CreatureState {
 		++CreatureState::LAST_ID, 50.0f, 50.0f, 0.0f
 	};
-	Creature* creature = new Creature(creatureState, true);
+	creatureState->mind = new CreatureMind(creatureState->id);
+	Creature* creature = new Creature(creatureState);
 
 	std::vector<std::vector<std::vector<double>>> vect{ {
 		{0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},

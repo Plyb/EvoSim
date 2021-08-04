@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include "CreatureMind.h"
 
 struct CreatureState {
 	long long id;
@@ -21,7 +22,7 @@ struct CreatureState {
 	double b;
 
 
-	std::vector<std::vector<std::vector<double>>> weights;
+	CreatureMind* mind;
 
 	float eaten;
 
