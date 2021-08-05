@@ -5,7 +5,7 @@
 #include <math.h>
 #include <random>
 
-CreatureMind::CreatureMind(unsigned int seed) {
+CreatureMind::CreatureMind(long long seed) {
 	const int INPUT_COUNT = 7;
 	const int OUTPUT_COUNT = 7;
 	const int HIDDEN_LAYER_COUNT = 1;
@@ -51,6 +51,8 @@ CreatureMind::CreatureMind(unsigned int seed) {
 CreatureMind::CreatureMind(CreatureMind* parent) {
 	weights = parent->weights;
 }
+
+CreatureMind::CreatureMind(std::vector<std::vector<std::vector<double>>> weights) : weights(weights) {}
 
 CreatureMind::Inputs::Inputs(
 	float energy,

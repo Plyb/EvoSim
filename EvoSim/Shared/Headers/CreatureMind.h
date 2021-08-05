@@ -5,8 +5,9 @@
 
 class CreatureMind {
 public:
-	CreatureMind(unsigned int seed);
+	CreatureMind(long long seed);
 	CreatureMind(CreatureMind* parent);
+	CreatureMind(std::vector<std::vector<std::vector<double>>> weights);
 
 	class Inputs {
 	public:
