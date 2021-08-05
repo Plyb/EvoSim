@@ -71,8 +71,9 @@ void Presenter::processClicks() {
 }
 
 Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
-	for (unsigned int i = 0; i < worldState->creatures.size(); ++i) {
-		CreatureState creature = worldState->creatures[i];
+	unsigned int i = 0;
+	for (std::pair<const long long, CreatureState>& entry : worldState->creatures) { // TODO: this should iterate through creatures, not use an index
+		CreatureState& creature = entry.second;
 		sprites[i] = new Sprite(
 			"awesomeface.png",
 			glm::vec2(creature.xpos * camera->pixelsPerUnit, creature.ypos * camera->pixelsPerUnit),
@@ -80,6 +81,7 @@ Sprite** Presenter::getSprites(Sprite** sprites, unsigned int maxSprites) {
 			glm::vec2(camera->pixelsPerUnit, camera->pixelsPerUnit),
 			glm::vec3(creature.energy / 300.0f, creature.energy / 300.0f, creature.energy / 300.0f)
 		);
+		i++;
 	}
 	sprites[worldState->creatures.size()] = nullptr;
 	return sprites;
