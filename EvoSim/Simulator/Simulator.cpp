@@ -10,15 +10,15 @@ Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
 		++CreatureState::LAST_ID, 50.0f, 50.0f, 0.0f
 	};
 
-	std::vector<std::vector<std::vector<double>>> defaultWeights{ {
-		{0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-		{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0},
-	} };
+	std::vector<Eigen::MatrixXd> defaultWeights{ (Eigen::MatrixXd(8, 7) <<
+		0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0).finished()
+	};
 
 	creatureState->mind = new CreatureMind(defaultWeights);
 	Creature* creature = new Creature(creatureState);

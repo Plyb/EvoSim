@@ -2,12 +2,13 @@
 #define CREATURE_MIND_H
 
 #include <vector>
+#include <Eigen/Dense>
 
 class CreatureMind {
 public:
 	CreatureMind(long long seed);
 	CreatureMind(CreatureMind* parent);
-	CreatureMind(std::vector<std::vector<std::vector<double>>> weights);
+	CreatureMind(std::vector<Eigen::MatrixXd> weights);
 
 	class Inputs {
 	public:
@@ -22,6 +23,7 @@ public:
 		);
 
 		std::vector<double> getRaw() const;
+		static const unsigned int NUM_INPUTS = 7;
 
 	private:
 		std::vector<double> rawInputs;
@@ -42,10 +44,12 @@ public:
 	Outputs calculate(Inputs inputs) const;
 
 private:
-	std::vector<std::vector<std::vector<double>>> weights;
+	std::vector<Eigen::MatrixXd> weights;
 	void mutate();
 
-	static double sigmoid(double value);
+	static Eigen::VectorXd sigmoid(const Eigen::VectorXd& values);
+
+	static const int NODES_PER_LAYER = 12;
 };
 
 #endif // !CREATURE_MIND_H
