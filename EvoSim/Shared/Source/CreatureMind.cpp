@@ -100,10 +100,10 @@ double CreatureMind::Outputs::getEatenPercent() const {
 }
 
 CreatureMind::Outputs CreatureMind::calculate(CreatureMind::Inputs inputs) const {
-	Eigen::VectorXd values = Eigen::Map<Eigen::Matrix<double, Inputs::NUM_INPUTS, 1>>(inputs.getRaw().data());
+	Eigen::VectorXd values = Eigen::Map<Eigen::Matrix<double, Inputs::NUM_INPUTS + 1, 1>>(inputs.getRaw().data());
 	for (Eigen::MatrixXd matrix : weights) {
 		values = sigmoid(matrix * values);
-		values[NODES_PER_LAYER] = 1.0f;
+		values[values.size() - 1] = 1.0f;
 	}
 	return Outputs(std::vector<double>(values.data(), values.data() + values.size()));
 }
