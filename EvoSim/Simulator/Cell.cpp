@@ -4,7 +4,7 @@ const float Cell::FOOD_BOOST_CHANCE = 0.05f;
 
 Cell::Cell() {
 	state = CellState();
-	state.food = 100; // TODO: magic number
+	state.food = 10; // TODO: magic number
 }
 
 const CellState* Cell::getState() const {

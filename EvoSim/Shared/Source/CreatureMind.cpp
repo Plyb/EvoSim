@@ -116,10 +116,9 @@ void CreatureMind::mutate() {
 	std::uniform_real_distribution<double> negatorDist(0.0, 1.0);
 	for (Eigen::MatrixXd& matrix : weights) {
 		for (unsigned int i = 0; i < matrix.size(); i++) {
-			double& weight = matrix.data()[i];
-			weight += multiplierDist(random) * weight;
+			matrix(i) += multiplierDist(random) * matrix(i);
 			if (negatorDist(random) > MUTATION_RATE) {
-				weight *= -1;
+				matrix(i) *= -1;
 			}
 		}
 	}
