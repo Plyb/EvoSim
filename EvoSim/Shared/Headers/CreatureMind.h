@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <Eigen/Dense>
+#include <random>
 
 class CreatureMind {
 public:
@@ -50,6 +51,9 @@ private:
 	static Eigen::VectorXd sigmoid(const Eigen::VectorXd& values);
 
 	static const int NODES_PER_LAYER = 12;
+	static const double MUTATION_RATE;
+
+	std::default_random_engine random;
 };
 
 #endif // !CREATURE_MIND_H

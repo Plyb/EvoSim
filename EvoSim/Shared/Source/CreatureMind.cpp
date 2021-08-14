@@ -3,7 +3,8 @@
 #define _USE_MATH_DEFINES
 
 #include <math.h>
-#include <random>
+
+const double CreatureMind::MUTATION_RATE = 0.1f;
 
 CreatureMind::CreatureMind(long long seed) {
 	const int INPUT_COUNT = 7;
@@ -14,24 +15,25 @@ CreatureMind::CreatureMind(long long seed) {
 	const double max_weight = 1.0;
 
 	std::uniform_real_distribution<double> unif(min_weight, max_weight);
-	std::default_random_engine re(seed);
+	random = std::default_random_engine(seed);
 
 	std::vector<Eigen::MatrixXd> weights = std::vector<Eigen::MatrixXd>(HIDDEN_LAYER_COUNT + 1);
 
-	weights.at(0) = Eigen::MatrixXd(INPUT_COUNT + 1, NODES_PER_LAYER);
-	for (int i = 0; i < NODES_PER_LAYER * (INPUT_COUNT + 1); i++) {
-			weights.at(0) << unif(re);
+	const int secondLayerCount = HIDDEN_LAYER_COUNT > 1 ? NODES_PER_LAYER : OUTPUT_COUNT;
+	weights.at(0) = Eigen::MatrixXd(INPUT_COUNT, secondLayerCount + 1);
+	for (int i = 0; i < (secondLayerCount + 1) * (INPUT_COUNT); i++) {
+			weights.at(0)(i) = unif(random);
 	}
 
 	for (int i = 1; i < HIDDEN_LAYER_COUNT; i++) {
 		weights.at(i) = Eigen::MatrixXd(NODES_PER_LAYER + 1, NODES_PER_LAYER);
 		for (int j = 0; j < NODES_PER_LAYER * (NODES_PER_LAYER + 1); j++) {
-				weights.at(i) << unif(re);
+				weights.at(i)(j) = unif(random);
 		}
 	}
-	weights.at(HIDDEN_LAYER_COUNT) = Eigen::MatrixXd(NODES_PER_LAYER + 1, OUTPUT_COUNT);
-	for (int i = 0; i < OUTPUT_COUNT * (NODES_PER_LAYER + 1); i++) {
-			weights.at(HIDDEN_LAYER_COUNT) << unif(re);
+	weights.at(HIDDEN_LAYER_COUNT) = Eigen::MatrixXd(NODES_PER_LAYER, OUTPUT_COUNT + 1);
+	for (int i = 0; i < (OUTPUT_COUNT + 1) * NODES_PER_LAYER; i++) {
+			weights.at(HIDDEN_LAYER_COUNT)(i) = unif(random);
 	}
 
 	this->weights = weights;
@@ -39,6 +41,7 @@ CreatureMind::CreatureMind(long long seed) {
 
 CreatureMind::CreatureMind(CreatureMind* parent) {
 	weights = parent->weights;
+	mutate();
 }
 
 CreatureMind::CreatureMind(std::vector<Eigen::MatrixXd> weights) : weights(weights) {}
@@ -109,7 +112,17 @@ CreatureMind::Outputs CreatureMind::calculate(CreatureMind::Inputs inputs) const
 }
 
 void CreatureMind::mutate() {
-	// TODO implement
+	std::uniform_real_distribution<double> multiplierDist(-MUTATION_RATE, MUTATION_RATE);
+	std::uniform_real_distribution<double> negatorDist(0.0, 1.0);
+	for (Eigen::MatrixXd& matrix : weights) {
+		for (unsigned int i = 0; i < matrix.size(); i++) {
+			double& weight = matrix.data()[i];
+			weight += multiplierDist(random) * weight;
+			if (negatorDist(random) > MUTATION_RATE) {
+				weight *= -1;
+			}
+		}
+	}
 }
 
 Eigen::VectorXd CreatureMind::sigmoid(const Eigen::VectorXd& values) {
