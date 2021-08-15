@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <math.h>
+#include <omp.h>
 
 
 Simulator::Simulator(Timeline& timeline) : timeline(&timeline) {
@@ -38,7 +39,10 @@ void Simulator::run() {
 
 // TODO: this can be parallelized
 void Simulator::updateCreatures() {
-	for (Creature* creature : creatures) {
+	omp_set_num_threads((creatures.size() / UPDATE_CREATURES_CHUNK_SIZE) + 1);
+#pragma omp parallel for
+	for (int i = 0; i < creatures.size(); i++) {
+		Creature* creature = creatures.at(i);
 		creature->update(ground);
 	}
 }
