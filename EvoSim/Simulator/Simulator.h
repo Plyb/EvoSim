@@ -26,6 +26,8 @@ private:
 	void addCreatures();
 
 	WorldState* createState() const; // TODO make this const
+
+	static const unsigned int UPDATE_CREATURES_CHUNK_SIZE = 4000; // How many creatures to update in a multithreading chunk.
 };
 
 #endif // !SIMULATOR_H
