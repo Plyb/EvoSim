@@ -152,6 +152,9 @@
     <ClCompile Include="Shared\Source\CreatureMind.cpp">
       <Filter>Shared\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Shared\Source\WorldStateSerializer.cpp">
+      <Filter>Shared\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer\Headers\Renderer.h">
@@ -239,6 +242,9 @@
       <Filter>Shared\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Shared\Headers\CreatureMind.h">
+      <Filter>Shared\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Headers\WorldStateSerializer.h">
       <Filter>Shared\Headers</Filter>
     </ClInclude>
   </ItemGroup>

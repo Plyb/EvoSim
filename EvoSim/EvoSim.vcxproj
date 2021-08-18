@@ -170,6 +170,7 @@
     <ClCompile Include="Shared\Source\MethodCallback.cpp" />
     <ClCompile Include="Shared\Source\Timeline.cpp" />
     <ClCompile Include="Shared\Source\WorldState.cpp" />
+    <ClCompile Include="Shared\Source\WorldStateSerializer.cpp" />
     <ClCompile Include="Simulator\Cell.cpp" />
     <ClCompile Include="Simulator\Creature.cpp" />
     <ClCompile Include="Simulator\Simulator.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Shared\Headers\MethodCallback.h" />
     <ClInclude Include="Shared\Headers\Timeline.h" />
     <ClInclude Include="Shared\Headers\WorldState.h" />
+    <ClInclude Include="Shared\Headers\WorldStateSerializer.h" />
     <ClInclude Include="Simulator\Cell.h" />
     <ClInclude Include="Simulator\Creature.h" />
     <ClInclude Include="Simulator\Simulator.h" />
