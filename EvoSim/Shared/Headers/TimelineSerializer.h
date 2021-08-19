@@ -2,10 +2,13 @@
 #define WORLD_STATE_SERIALIZER_H
 
 #include "WorldState.h"
+#include "CreatureMind.h"
+#include <string>
 
-class WorldStateSerializer {
+class TimelineSerializer {
 public:
-	static void serialize(const WorldState& worldState);
+	static void initializeDirectory();
+	static void serializeWorldState(const WorldState& worldState, unsigned int tick);
 private:
 	static void serializeChunk(const WorldState& worldStateChunk, unsigned x, unsigned y);
 
@@ -14,6 +17,27 @@ private:
 
 	static void serializeCreature(const CreatureState& creature);
 	static void serializeGroundCell(const CellState& cell);
+
+	static std::string getPath(const std::vector<std::string>& steps);
+
+	static const std::string TIMELINE_DIRECTORY_NAME;
+
+	template <typename T>
+	class ByteArray {
+	public:
+		ByteArray(T value);
+		const std::string toBase64() const;
+		friend std::ostream& operator<<(std::ostream& os, const ByteArray& byteArray) {
+			for (unsigned int i = 0; i < byteArray.size; i++) {
+				os << byteArray.rawArray[i];
+			}
+			return os;
+		}
+	private:
+		T value;
+		const unsigned int size;
+		const char* rawArray;
+	};
 };
 
 #endif // !WORLD_STATE_SERIALIZER_H
@@ -28,9 +52,8 @@ root
     \-{chunkx}-{chunky}.chunk
 
 WORLD FORMAT:
-{mindinputs-base64}:{num hidden layers-base64}:{hidden layer nodes-base64}:{output nodes-base64}\n
-{worldwidth x-base64}:{worldwidth y-base64}\n
-{chunkwidth x-base64}:{chunkwidth y-base64}
+{mindinputs-base10}:{num hidden layers-base10}:{hidden layer nodes-base10}:{output nodes-base10}\n
+{worldwidth-base64}:{chunkwidth-base64}
 
 CHUNK FORMAT:
 {CREATURE1}\n

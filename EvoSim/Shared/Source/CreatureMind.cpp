@@ -7,10 +7,6 @@
 const double CreatureMind::MUTATION_RATE = 0.1f;
 
 CreatureMind::CreatureMind(long long seed) {
-	const int INPUT_COUNT = 7;
-	const int OUTPUT_COUNT = 7;
-	const int HIDDEN_LAYER_COUNT = 1;
-
 	const double min_weight = -1.0; // Should probably increase this.
 	const double max_weight = 1.0;
 
@@ -19,9 +15,9 @@ CreatureMind::CreatureMind(long long seed) {
 
 	std::vector<Eigen::MatrixXd> weights = std::vector<Eigen::MatrixXd>(HIDDEN_LAYER_COUNT + 1);
 
-	const int secondLayerCount = HIDDEN_LAYER_COUNT > 1 ? NODES_PER_LAYER : OUTPUT_COUNT;
-	weights.at(0) = Eigen::MatrixXd(INPUT_COUNT, secondLayerCount + 1);
-	for (int i = 0; i < (secondLayerCount + 1) * (INPUT_COUNT); i++) {
+	const int secondLayerCount = HIDDEN_LAYER_COUNT > 1 ? NODES_PER_LAYER : Outputs::NUM_OUTPUTS;
+	weights.at(0) = Eigen::MatrixXd(Inputs::NUM_INPUTS, secondLayerCount + 1);
+	for (int i = 0; i < (secondLayerCount + 1) * (Inputs::NUM_INPUTS); i++) {
 			weights.at(0)(i) = unif(random);
 	}
 
@@ -31,8 +27,8 @@ CreatureMind::CreatureMind(long long seed) {
 				weights.at(i)(j) = unif(random);
 		}
 	}
-	weights.at(HIDDEN_LAYER_COUNT) = Eigen::MatrixXd(NODES_PER_LAYER, OUTPUT_COUNT + 1);
-	for (int i = 0; i < (OUTPUT_COUNT + 1) * NODES_PER_LAYER; i++) {
+	weights.at(HIDDEN_LAYER_COUNT) = Eigen::MatrixXd(NODES_PER_LAYER, Outputs::NUM_OUTPUTS + 1);
+	for (int i = 0; i < (Outputs::NUM_OUTPUTS + 1) * NODES_PER_LAYER; i++) {
 			weights.at(HIDDEN_LAYER_COUNT)(i) = unif(random);
 	}
 

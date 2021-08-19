@@ -3,9 +3,11 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "../Headers/TimelineSerializer.h"
 
 Timeline::Timeline() {
 	pushEpoch = new Epoch();
+	TimelineSerializer::initializeDirectory();
 }
 
 void Timeline::push(WorldState* worldState) {

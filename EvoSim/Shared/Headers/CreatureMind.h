@@ -11,6 +11,9 @@ public:
 	CreatureMind(CreatureMind* parent);
 	CreatureMind(std::vector<Eigen::MatrixXd> weights);
 
+	static const unsigned int NODES_PER_LAYER = 12;
+	static const unsigned int HIDDEN_LAYER_COUNT = 1;
+
 	class Inputs {
 	public:
 		Inputs(
@@ -24,6 +27,7 @@ public:
 		);
 
 		std::vector<double> getRaw() const;
+
 		static const unsigned int NUM_INPUTS = 7;
 
 	private:
@@ -38,6 +42,9 @@ public:
 		double getSpeed() const;
 		double getRotChange() const;
 		double getEatenPercent() const;
+
+		static const unsigned int NUM_OUTPUTS = 7;
+
 	private:
 		std::vector<double> rawOutputs;
 	};
@@ -50,7 +57,6 @@ private:
 
 	static Eigen::VectorXd sigmoid(const Eigen::VectorXd& values);
 
-	static const int NODES_PER_LAYER = 12;
 	static const double MUTATION_RATE;
 
 	std::default_random_engine random;
